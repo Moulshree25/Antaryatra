@@ -34,3 +34,35 @@ Services
 - Google Analytics 4 - User analytics
 
 Why Next.js?
+
+| Benefit | Impact |
+| :--- | :--- |
+| **SEO Optimized** | Server-side rendering for better rankings |
+| **Performance** | Automatic code splitting & image optimization |
+| **Mobile First** | Optimized bundle size for mobile networks |
+| **Scalable** | Easy to add features as business grows |
+| **Professional** | Production-ready, not a prototype |
+
+🚀 Quick Start
+Prerequisites
+Node.js 18+
+
+npm / yarn / pnpm
+
+Installation
+Bash
+# Clone repository
+git clone https://github.com/Moulshree25/Antaryatra.git
+cd antaryatra
+
+# Install dependencies
+npm install
+
+# Set up environment
+cp .env.example .env.local
+
+# Run development server
+npm run dev
+
+📁 Project Structure
+
