@@ -66,3 +66,79 @@ npm run dev
 
 📁 Project Structure
 
+
+
+🎨 Design System
+
+Color Palette
+
+- Dark Theme Only - Chakra Gradient Background
+
+- bg-dark: #1a0b1e;
+- primary: #ec5b13;
+- text-primary: #FAF9F7;
+
+Typography
+
+- Headings: Playfair Display (serif)
+- Body: Public Sans (sans-serif)
+
+Breakpoints
+
+- Mobile: < 640px (default)
+- Tablet: 640px - 1024px
+- Desktop: 1024px+
+
+📱 Mobile-First Features
+
+- ✅ Hamburger menu (< 768px)
+- ✅ 44px minimum tap targets
+- ✅ Full-width CTAs on mobile
+- ✅ Scroll snap carousel
+- ✅ WebP images with lazy loading
+- ✅ < 100KB initial bundle
+
+🔄 Development Phases
+
+- Phase 1: Foundation ✅ 
+
+ -- Next.js 14 setup
+ -- Mobile navigation
+ -- Core features
+
+- Phase 2: Booking System 🚧 
+
+ -- Booking page
+ -- API endpoints
+ -- Email notifications
+
+- Phase 3: Performance ⚡ 
+
+ -- Image optimization
+ -- Lighthouse 90+
+
+- Phase 4: Security 🔒 
+
+ -- reCAPTCHA v3
+ -- Rate limiting
+
+- Phase 5: SEO & Analytics 📈 
+
+ -- Meta tags
+ -- Google Analytics
+
+- Phase 6: Deployment 🚀 
+
+ -- Vercel deployment
+ -- Custom domain
+
+
+<div align="center">
+Antaryatra with Arti 
+-  Awaken Your Inner Energy
+-  🧘‍♀️ Balance • 🌿 Heal • ✨ Transform
+-  Made with 💚 for holistic wellness
+</div>
+
+
+ 
