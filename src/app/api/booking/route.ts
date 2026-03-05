@@ -1,16 +1,23 @@
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
-  const body = await req.json();
+  try {
 
-  const { name, email, phone, className, date, time } = body;
+    const body = await req.json();
 
-  if (!name || !email || !phone) {
-    return NextResponse.json({ error: "Missing fields" }, { status: 400 });
+    console.log("New booking received:", body);
+
+    return NextResponse.json(
+      { message: "Booking saved successfully" },
+      { status: 200 }
+    );
+
+  } catch (error) {
+
+    return NextResponse.json(
+      { error: "Failed to process booking" },
+      { status: 500 }
+    );
+
   }
-
-  // For MVP: log booking
-  console.log("New Booking:", body);
-
-  return NextResponse.json({ success: true });
 }

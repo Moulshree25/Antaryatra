@@ -28,9 +28,29 @@ export default function BookingForm() {
   const nextStep = () => setStep(step + 1);
   const prevStep = () => setStep(step - 1);
 
-  const handleSubmit = () => {
-  console.log("Booking Data:", formData);
-  setSuccess(true);
+  const handleSubmit = async () => {
+
+  try {
+
+    const res = await fetch("/api/booking", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to submit booking");
+    }
+
+    setSuccess(true);
+
+  } catch (error) {
+
+    alert("Something went wrong. Please try again.");
+
+  }
 };
 
 if (success) {
