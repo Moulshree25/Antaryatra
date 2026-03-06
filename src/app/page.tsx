@@ -1,22 +1,26 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
 export default function HomePage() {
+  const [html, setHtml] = useState("");
+
+  useEffect(() => {
+    fetch("/ui.html")
+      .then((res) => res.text())
+      .then((data) => setHtml(data));
+  }, []);
+
+  if (!html) return null;
+
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center text-center p-8">
-      
-      <h1 className="text-4xl font-bold mb-6">
-        Antaryatra
-      </h1>
-
-      <p className="text-gray-500 mb-8">
-        Awaken Your Inner Energy
-      </p>
-
-      <a
-        href="/booking"
-        className="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold"
-      >
-        Book a Class
-      </a>
-
-    </main>
+    <iframe
+      srcDoc={html}
+      style={{
+        width: "100%",
+        height: "100vh",
+        border: "none",
+      }}
+    />
   );
 }

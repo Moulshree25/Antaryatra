@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth dark" lang="en"><head><script>
+function toggleTheme() {
+  document.documentElement.classList.toggle('dark');
+  const isDark = document.documentElement.classList.contains('dark');
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+}
+
+function scrollChakras(direction) {
+  const container = document.getElementById('chakra-container');
+  const scrollAmount = 344; // Card width + gap
+  container.scrollBy({
+    left: direction * scrollAmount,
+    behavior: 'smooth'
+  });
+}
+
+// Initialize theme
+if (localStorage.getItem('theme') === 'light') {
+  document.documentElement.classList.remove('dark');
+} else {
+  document.documentElement.classList.add('dark');
+}
+</script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Antaryatra with Arti | Awaken Your Inner Energy</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&amp;family=Playfair+Display:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec5b13",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#1a0b1e", // Darker violet base for the top
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"],
+                        "serif": ["Playfair Display", "serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .chakra-gradient-bg {
+            background: linear-gradient(180deg, 
+                #1a0b1e 0%,    /* Crown - Violet */
+                #2a1b4d 15%,   /* Third Eye - Indigo */
+                #1e3a5f 30%,   /* Throat - Blue */
+                #1e4d2b 45%,   /* Heart - Green */
+                #5c4d10 60%,   /* Solar Plexus - Yellow/Gold */
+                #5c2e10 75%,   /* Sacral - Orange */
+                #4d1010 100%   /* Root - Red */
+            );
+        }
+        html:not(.dark) .chakra-gradient-bg {
+            background: #f8f6f6;
+        }
+        /* Contrast Rules */
+        html.dark body {
+            color: #FAF9F7;
+        }
+        html.dark h1, html.dark h2, html.dark h3, html.dark h4 {
+            color: #FAF9F7;
+        }
+        html:not(.dark) body {
+            color: #2C2C2C;
+        }
+        html:not(.dark) h1, html:not(.dark) h2, html:not(.dark) h3, html:not(.dark) h4 {
+            color: #2C2C2C;
+        }
+        /* Light theme text visibility for all opacity levels */
+        html:not(.dark) .text-white\/20 {
+            color: rgba(44, 44, 44, 1);
+        }
+        html:not(.dark) .text-white\/40 {
+            color: rgba(44, 44, 44, 1);
+        }
+        html:not(.dark) .text-white\/50 {
+            color: rgba(44, 44, 44, 0.9);
+        }
+        html:not(.dark) .text-white\/60 {
+            color: rgba(44, 44, 44, 0.9);
+        }
+        html:not(.dark) .text-white\/70 {
+            color: rgba(44, 44, 44, 0.9);
+        }
+        html:not(.dark) .text-white\/80 {
+            color: rgba(44, 44, 44, 0.85);
+        }
+        /* Heart Chakra grey color fix for light theme */
+        html:not(.dark) .text-\[\#9AA998\]\/80, html:not(.dark) .text-\[\#9AA998\] {
+            color: #5a6a58 !important;
+        }
+        html:not(.dark) .border-\[\#9AA998\]\/30 {
+            border-color: #8a9a88 !important;
+        }
+        html:not(.dark) .bg-\[\#9AA998\]\/20 {
+            background-color: rgba(90, 106, 88, 0.15) !important;
+        }
+        html:not(.dark) .border-\[\#9AA998\]\/40 {
+            border-color: #7a8a78 !important;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        html:not(.dark) .glass-card {
+            background: rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark chakra-gradient-bg min-h-screen">
+<!-- Top Navigation -->
+<nav class="sticky top-0 z-50 flex items-center justify-between px-8 py-4 glass-card border-b-0">
+<div class="flex items-center gap-3">
+<div class="text-primary size-8">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.8261 30.5736C16.7203 29.8826 20.2244 29.4783 24 29.4783C27.7756 29.4783 31.2797 29.8826 34.1739 30.5736C36.9144 31.2278 39.9967 32.7669 41.3563 33.8352L24.8486 7.36089C24.4571 6.73303 23.5429 6.73303 23.1514 7.36089L6.64374 33.8352C8.00331 32.7669 11.0856 31.2278 13.8261 30.5736Z" fill="currentColor"></path>
+<path clip-rule="evenodd" d="M39.998 35.764C39.9944 35.7463 39.9875 35.7155 39.9748 35.6706C39.9436 35.5601 39.8949 35.4259 39.8346 35.2825C39.8168 35.2403 39.7989 35.1993 39.7813 35.1602C38.5103 34.2887 35.9788 33.0607 33.7095 32.5189C30.9875 31.8691 27.6413 31.4783 24 31.4783C20.3587 31.4783 17.0125 31.8691 14.2905 32.5189C12.0012 33.0654 9.44505 34.3104 8.18538 35.1832C8.17384 35.2075 8.16216 35.233 8.15052 35.2592C8.09919 35.3751 8.05721 35.4886 8.02977 35.589C8.00356 35.6848 8.00039 35.7333 8.00004 35.7388C8.00004 35.739 8 35.7393 8.00004 35.7388C8.00004 35.7641 8.0104 36.0767 8.68485 36.6314C9.34546 37.1746 10.4222 37.7531 11.9291 38.2772C14.9242 39.319 19.1919 40 24 40C28.8081 40 33.0758 39.319 36.0709 38.2772C37.5778 37.7531 38.6545 37.1746 39.3151 36.6314C39.9006 36.1499 39.9857 35.8511 39.998 35.764ZM4.95178 32.7688L21.4543 6.30267C22.6288 4.4191 25.3712 4.41909 26.5457 6.30267L43.0534 32.777C43.0709 32.8052 43.0878 32.8338 43.104 32.8629L41.3563 33.8352C43.104 32.8629 43.1038 32.8626 43.104 32.8629L43.1051 32.865L43.1065 32.8675L43.1101 32.8739L43.1199 32.8918C43.1276 32.906 43.1377 32.9246 43.1497 32.9473C43.1738 32.9925 43.2062 33.0545 43.244 33.1299C43.319 33.2792 43.4196 33.489 43.5217 33.7317C43.6901 34.1321 44 34.9311 44 35.7391C44 37.4427 43.003 38.7775 41.8558 39.7209C40.6947 40.6757 39.1354 41.4464 37.385 42.0552C33.8654 43.2794 29.133 44 24 44C18.867 44 14.1346 43.2794 10.615 42.0552C8.86463 41.4464 7.30529 40.6757 6.14419 39.7209C4.99695 38.7775 3.99999 37.4427 3.99999 35.7391C3.99999 34.8725 4.29264 34.0922 4.49321 33.6393C4.60375 33.3898 4.71348 33.1804 4.79687 33.0311C4.83898 32.9556 4.87547 32.8935 4.9035 32.8471C4.91754 32.8238 4.92954 32.8043 4.93916 32.7889L4.94662 32.777L4.95178 32.7688ZM35.9868 29.004L24 9.77997L12.0131 29.004C12.4661 28.8609 12.9179 28.7342 13.3617 28.6282C16.4281 27.8961 20.0901 27.4783 24 27.4783C27.9099 27.4783 31.5719 27.8961 34.6383 28.6282C35.082 28.7342 35.5339 28.8609 35.9868 29.004Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<span class="text-xl font-bold tracking-tight">Antaryatra <span class="text-primary">with Arti</span></span>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="hover:text-primary transition-colors text-sm font-medium dark:text-[#FAF9F7] text-[#2C2C2C]" href="#practices">Practices</a>
+<a class="hover:text-primary transition-colors text-sm font-medium dark:text-[#FAF9F7] text-[#2C2C2C]" href="#chakras">Chakra Explorer</a>
+<a class="hover:text-primary transition-colors text-sm font-medium dark:text-[#FAF9F7] text-[#2C2C2C]" href="#training">Training</a>
+<a class="hover:text-primary transition-colors text-sm font-medium dark:text-[#FAF9F7] text-[#2C2C2C]" href="#classes">Classes</a>
+<a class="hover:text-primary transition-colors text-sm font-medium dark:text-[#FAF9F7] text-[#2C2C2C]" href="#arti">About</a>
+</div>
+<div class="flex gap-4">
+<button class="bg-primary hover:bg-primary/90 text-white px-5 py-2 rounded-xl text-sm font-bold transition-all">
+  Book a Class
+</button>
+
+</div>
+</nav>
+<!-- 1. HERO SECTION (Violet/Crown) -->
+<section class="relative min-h-[90vh] flex items-center px-8 md:px-20 overflow-hidden">
+<div class="grid md:grid-cols-2 gap-12 items-center max-w-7xl mx-auto w-full">
+<div class="space-y-8 z-10">
+<div class="space-y-4">
+<h1 class="font-serif text-5xl md:text-7xl font-bold leading-tight dark:text-[#FAF9F7] text-[#2C2C2C]">Awaken Your <span class="text-primary italic">Inner Energy</span></h1>
+<h2 class="text-2xl font-light text-white/80 dark:text-[#FAF9F7] text-[#2C2C2C]">Yoga &amp; Meditation for Body, Mind &amp; Balance.</h2>
+<p class="text-lg text-white/70 max-w-lg">Reconnect with your body, calm your mind, and restore inner harmony through guided yoga and meditation practices.
+</p>
+</div>
+<div class="flex flex-wrap gap-4">
+<button class="bg-primary hover:scale-105 transition-transform text-white px-8 py-4 rounded-xl font-bold text-lg shadow-lg shadow-primary/20">Start Your Healing Journey</button>
+<button class="border-2 border-white/30 hover:border-white/60 px-8 py-4 rounded-xl font-bold text-lg transition-all">Book a Class</button>
+</div>
+<div class="flex items-center gap-4 text-white/50 pt-8 animate-pulse">
+<span class="material-symbols-outlined">air</span>
+<p class="text-sm uppercase tracking-widest font-medium">Take a deep breath in... and out.</p>
+</div>
+</div>
+<div class="relative">
+<div class="absolute inset-0 bg-primary/20 blur-[120px] rounded-full"></div>
+<div class="relative rounded-3xl overflow-hidden aspect-[4/5] shadow-2xl">
+<img class="w-full h-full object-cover" data-alt="Serene woman performing yoga pose in soft violet light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJQop3Zq_9seBfYAi_N5WhM4WHuYmHMn9wdVECt-f6--1SNO8SDCntt0m80LbcdDQk6DVDGtIy7sZWGbAPqH2uogPSLq6DQczJOlOPZeLo1vpXNNBwvixRwrUrAEGPwLkNb_d8SETegNOoDJCyWlUXfOOCB5XGbUj2ixqGAnPaT-KbtmDBiqsGnUq_9CD5cyQKYWWszc32IlbHeMd2VH35R0ThogK1Rr2HYa5OlwSoBkEi7UWotUwbyvGVIqbp-RzCXdQ86nsLEcc"/>
+</div>
+<!-- Scroll Hint -->
+<div class="absolute -bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+<span class="text-xs uppercase tracking-tighter text-white/40">Discover Your Path</span>
+<span class="material-symbols-outlined animate-bounce text-white/40">keyboard_double_arrow_down</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 2. CONCERN SELECTOR (Indigo) -->
+<section class="py-24 px-8 md:px-20 max-w-7xl mx-auto">
+<div class="text-center space-y-4 mb-12">
+<h2 class="font-serif text-4xl md:text-5xl dark:text-[#FAF9F7] text-[#2C2C2C]">Find Your Balance</h2>
+<p class="text-white/60">
+Select what you are experiencing and discover the right path for healing.
+</p>
+</div>
+<div class="flex flex-wrap justify-center gap-3">
+<button class="px-6 py-3 rounded-full glass-card hover:bg-primary/40 hover:border-primary transition-all flex items-center gap-2">
+                Stress <span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+<button class="px-6 py-3 rounded-full glass-card hover:bg-primary/40 hover:border-primary transition-all flex items-center gap-2">
+                Anxiety <span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+<button class="px-6 py-3 rounded-full bg-primary/20 border-primary border px-6 py-3 rounded-full flex items-center gap-2">
+                Body Pain <span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+<button class="px-6 py-3 rounded-full glass-card hover:bg-primary/40 hover:border-primary transition-all flex items-center gap-2">
+                Low Focus <span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+<button class="px-6 py-3 rounded-full glass-card hover:bg-primary/40 hover:border-primary transition-all flex items-center gap-2">
+                Poor Sleep <span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+<button class="px-6 py-3 rounded-full glass-card hover:bg-primary/40 hover:border-primary transition-all flex items-center gap-2">
+                Emotional Imbalance <span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+<button class="px-6 py-3 rounded-full glass-card hover:bg-primary/40 hover:border-primary transition-all flex items-center gap-2">
+                Low Energy <span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+</div>
+<!-- Collapsed Panel (Active State Simulation) -->
+<div class="mt-8 p-8 rounded-2xl glass-card border-primary/30 max-w-3xl mx-auto">
+<div class="flex items-start gap-6">
+<div class="bg-primary/20 p-4 rounded-xl text-primary">
+<span class="material-symbols-outlined text-4xl">healing</span>
+</div>
+<div>
+<h3 class="text-xl font-bold mb-2 dark:text-[#FAF9F7] text-[#2C2C2C]">Addressing Body Pain</h3>
+<p class="text-white/70 mb-4">
+Your selection reveals the most affected chakra and suitable practices.
+</p>
+
+<p class="text-sm text-white/60 mb-2">
+<strong>Possible Imbalance:</strong> Root Chakra (Muladhara) and related grounding centers
+</p>
+
+<p class="text-sm text-white/60">
+<strong>Recommended:</strong> Grounding yoga poses, spinal alignment practices, and body awareness meditation
+</p>
+
+<div class="flex gap-4">
+<span class="text-xs font-bold uppercase tracking-widest text-primary">
+Suggested Practice:
+</span>
+<span class="text-xs text-white/50">Hatha Yoga • 20 Mins • Beginner</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 3. CHAKRA EXPLORER (Blue) -->
+<section class="py-24 px-8 overflow-hidden relative" id="chakras">
+<div class="max-w-7xl mx-auto mb-12">
+<h2 class="font-serif text-4xl mb-2 dark:text-[#FAF9F7] text-[#2C2C2C]">
+Explore the Chakras
+</h2>
+<p class="text-white/60">Navigate the subtle energy centers of your body.</p>
+<div class="flex gap-2 mt-4 md:mt-0 md:absolute md:right-8 md:top-24">
+<button class="p-2 rounded-full glass-card hover:bg-primary/20 transition-all" onclick="scrollChakras(-1)">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="p-2 rounded-full glass-card hover:bg-primary/20 transition-all" onclick="scrollChakras(1)">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div></div>
+<div class="flex gap-6 overflow-x-auto pb-12 snap-x px-4 no-scrollbar" id="chakra-container"><!-- Card 1: Root (Muladhara) -->
+<div class="min-w-[320px] snap-center glass-card p-8 rounded-3xl space-y-6 hover:translate-y-[-8px] transition-transform border-[#AD0517]/30">
+<div class="size-16 rounded-full bg-[#AD0517]/20 flex items-center justify-center text-[#AD0517] border border-[#AD0517]/40">
+<span class="material-symbols-outlined text-3xl">home</span>
+</div>
+<div>
+<h3 class="text-2xl font-bold font-serif dark:text-[#FAF9F7] text-[#2C2C2C]">Root (Muladhara)</h3>
+<p class="text-sm text-[#AD0517]/80 font-medium">Grounding, stability, physical safety</p>
+</div>
+<div class="space-y-4 text-sm text-white/70">
+<p><strong>Supports:</strong> Legs, spine, immunity.</p>
+<p><strong>Helps with:</strong> Fear, insecurity, restlessness.</p>
+</div>
+<div class="pt-2">
+<p class="text-[10px] uppercase tracking-widest text-white/40 mb-2">Recommended</p>
+<p class="text-xs text-white/80 italic">Grounding yoga poses, body awareness meditation.</p>
+</div>
+<button class="w-full py-3 rounded-xl border border-[#AD0517]/30 hover:bg-[#AD0517]/10 transition-colors font-bold text-sm">Explore Practice</button>
+</div>
+<!-- Card 2: Sacral (Svadhisthana) -->
+<div class="min-w-[320px] snap-center glass-card p-8 rounded-3xl space-y-6 hover:translate-y-[-8px] transition-transform border-[#F3904B]/30">
+<div class="size-16 rounded-full bg-[#F3904B]/20 flex items-center justify-center text-[#F3904B] border border-[#F3904B]/40">
+<span class="material-symbols-outlined text-3xl">water_drop</span>
+</div>
+<div>
+<h3 class="text-2xl font-bold font-serif dark:text-[#FAF9F7] text-[#2C2C2C]">Sacral (Svadhisthana)</h3>
+<p class="text-sm text-[#F3904B]/80 font-medium">Creativity, emotions, flow</p>
+</div>
+<div class="space-y-4 text-sm text-white/70">
+<p><strong>Supports:</strong> Hips, reproductive system.</p>
+<p><strong>Helps with:</strong> Emotional blockages, low creativity.</p>
+</div>
+<div class="pt-2">
+<p class="text-[10px] uppercase tracking-widest text-white/40 mb-2">Recommended</p>
+<p class="text-xs text-white/80 italic">Hip-opening yoga, flow meditation.</p>
+</div>
+<button class="w-full py-3 rounded-xl border border-[#F3904B]/30 hover:bg-[#F3904B]/10 transition-colors font-bold text-sm">Explore Practice</button>
+</div>
+<!-- Card 3: Solar Plexus (Manipura) -->
+<div class="min-w-[320px] snap-center glass-card p-8 rounded-3xl space-y-6 hover:translate-y-[-8px] transition-transform border-[#F7C767]/30">
+<div class="size-16 rounded-full bg-[#F7C767]/20 flex items-center justify-center text-[#F7C767] border border-[#F7C767]/40">
+<span class="material-symbols-outlined text-3xl">wb_sunny</span>
+</div>
+<div>
+<h3 class="text-2xl font-bold font-serif dark:text-[#FAF9F7] text-[#2C2C2C]">Solar Plexus (Manipura)</h3>
+<p class="text-sm text-[#F7C767]/80 font-medium">Confidence, power, self-worth</p>
+</div>
+<div class="space-y-4 text-sm text-white/70">
+<p><strong>Supports:</strong> Digestive system.</p>
+<p><strong>Helps with:</strong> Low confidence, lack of motivation.</p>
+</div>
+<div class="pt-2">
+<p class="text-[10px] uppercase tracking-widest text-white/40 mb-2">Recommended</p>
+<p class="text-xs text-white/80 italic">Core-strengthening yoga, focus meditation.</p>
+</div>
+<button class="w-full py-3 rounded-xl border border-[#F7C767]/30 hover:bg-[#F7C767]/10 transition-colors font-bold text-sm">Explore Practice</button>
+</div>
+<!-- Card 4: Heart (Anahata) -->
+<div class="min-w-[320px] snap-center glass-card p-8 rounded-3xl space-y-6 hover:translate-y-[-8px] transition-transform border-[#9AA998]/30">
+<div class="size-16 rounded-full bg-[#9AA998]/20 flex items-center justify-center text-[#9AA998] border border-[#9AA998]/40">
+<span class="material-symbols-outlined text-3xl">favorite</span>
+</div>
+<div>
+<h3 class="text-2xl font-bold font-serif dark:text-[#FAF9F7] text-[#2C2C2C]">Heart (Anahata)</h3>
+<p class="text-sm text-[#9AA998]/80 font-medium">Love, compassion, healing</p>
+</div>
+<div class="space-y-4 text-sm text-white/70">
+<p><strong>Supports:</strong> Heart, lungs.</p>
+<p><strong>Helps with:</strong> Grief, emotional pain.</p>
+</div>
+<div class="pt-2">
+<p class="text-[10px] uppercase tracking-widest text-white/40 mb-2">Recommended</p>
+<p class="text-xs text-white/80 italic">Heart-opening yoga, loving-kindness meditation.</p>
+</div>
+<button class="w-full py-3 rounded-xl border border-[#9AA998]/30 hover:bg-[#9AA998]/10 transition-colors font-bold text-sm">Explore Practice</button>
+</div>
+<!-- Card 5: Throat (Vishuddha) -->
+<div class="min-w-[320px] snap-center glass-card p-8 rounded-3xl space-y-6 hover:translate-y-[-8px] transition-transform border-[#A0BBEB]/30">
+<div class="size-16 rounded-full bg-[#A0BBEB]/20 flex items-center justify-center text-[#A0BBEB] border border-[#A0BBEB]/40">
+<span class="material-symbols-outlined text-3xl">record_voice_over</span>
+</div>
+<div>
+<h3 class="text-2xl font-bold font-serif dark:text-[#FAF9F7] text-[#2C2C2C]">Throat (Vishuddha)</h3>
+<p class="text-sm text-[#A0BBEB]/80 font-medium">Expression, communication</p>
+</div>
+<div class="space-y-4 text-sm text-white/70">
+<p><strong>Supports:</strong> Throat, neck.</p>
+<p><strong>Helps with:</strong> Suppressed emotions, communication issues.</p>
+</div>
+<div class="pt-2">
+<p class="text-[10px] uppercase tracking-widest text-white/40 mb-2">Recommended</p>
+<p class="text-xs text-white/80 italic">Neck stretches, mantra meditation.</p>
+</div>
+<button class="w-full py-3 rounded-xl border border-[#A0BBEB]/30 hover:bg-[#A0BBEB]/10 transition-colors font-bold text-sm">Explore Practice</button>
+</div>
+<!-- Card 6: Third Eye (Ajna) -->
+<div class="min-w-[320px] snap-center glass-card p-8 rounded-3xl space-y-6 hover:translate-y-[-8px] transition-transform border-indigo-500/30">
+<div class="size-16 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400 border border-indigo-500/40">
+<span class="material-symbols-outlined text-3xl">visibility</span>
+</div>
+<div>
+<h3 class="text-2xl font-bold font-serif dark:text-[#FAF9F7] text-[#2C2C2C]">Third Eye (Ajna)</h3>
+<p class="text-sm text-indigo-300 font-medium">Intuition, clarity, awareness</p>
+</div>
+<div class="space-y-4 text-sm text-white/70">
+<p><strong>Supports:</strong> Mind, nervous system.</p>
+<p><strong>Helps with:</strong> Confusion, lack of focus.</p>
+</div>
+<div class="pt-2">
+<p class="text-[10px] uppercase tracking-widest text-white/40 mb-2">Recommended</p>
+<p class="text-xs text-white/80 italic">Stillness practices, awareness meditation.</p>
+</div>
+<button class="w-full py-3 rounded-xl border border-indigo-500/30 hover:bg-indigo-500/10 transition-colors font-bold text-sm">Explore Practice</button>
+</div>
+<!-- Card 7: Crown (Sahasrara) -->
+<div class="min-w-[320px] snap-center glass-card p-8 rounded-3xl space-y-6 hover:translate-y-[-8px] transition-transform border-[#B89DBB]/30">
+<div class="size-16 rounded-full bg-[#B89DBB]/20 flex items-center justify-center text-[#B89DBB] border border-[#B89DBB]/40">
+<span class="material-symbols-outlined text-3xl">light_mode</span>
+</div>
+<div>
+<h3 class="text-2xl font-bold font-serif dark:text-[#FAF9F7] text-[#2C2C2C]">Crown (Sahasrara)</h3>
+<p class="text-sm text-[#B89DBB]/80 font-medium">Connection, consciousness, peace</p>
+</div>
+<div class="space-y-4 text-sm text-white/70">
+<p><strong>Supports:</strong> Brain, higher awareness.</p>
+<p><strong>Helps with:</strong> Disconnection, mental overload.</p>
+</div>
+<div class="pt-2">
+<p class="text-[10px] uppercase tracking-widest text-white/40 mb-2">Recommended</p>
+<p class="text-xs text-white/80 italic">Silent meditation, breath awareness.</p>
+</div>
+<button class="w-full py-3 rounded-xl border border-[#B89DBB]/30 hover:bg-[#B89DBB]/10 transition-colors font-bold text-sm">Explore Practice</button>
+</div></div>
+</section>
+<!-- 4. YOGA PRACTICES (Green/Heart Theme) -->
+<section class="py-24 px-8 md:px-20 max-w-7xl mx-auto" id="practices">
+<div class="flex flex-col md:flex-row justify-between items-end gap-6 mb-12">
+<div>
+<h2 class="font-serif text-4xl mb-2 dark:text-[#FAF9F7] text-[#2C2C2C]">Yoga Practices</h2>
+<p class="text-white/60">Structured paths for every level of journey.</p>
+</div>
+<div class="flex bg-white/5 p-1 rounded-xl">
+<button class="px-4 py-2 bg-primary rounded-lg text-sm font-bold">Beginner</button>
+<button class="px-4 py-2 hover:bg-white/5 rounded-lg text-sm font-medium">Strength</button>
+<button class="px-4 py-2 hover:bg-white/5 rounded-lg text-sm font-medium">Chakra</button>
+<button class="px-4 py-2 hover:bg-white/5 rounded-lg text-sm font-medium">Restorative</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Practice Card 1 -->
+<div class="group relative overflow-hidden rounded-2xl glass-card">
+<div class="aspect-video relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Calm morning hatha yoga practice session" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDeywFQMpfFa8UYsvbL2cqtXg_Dza99oXZ7gbr-Pq6TplNrSFpunDOLtRa7p-8ueRZt6VCmIduekIi8d_yoKHrvN133KYbLNzos_QerAdZNflRruyHsvMI7hRurH2BKsSPbtzNt9HeFR7AwWsii8qJ2jGFQviEVFlW2lDwsMxee9eBfJtO8TzAOmJxbukvnMZPlPUp7tspRzz-QFEm98FOv8OT3p15hUAL9FLU305o5UunGWV-NVzOfxpRjVr7qydZd0mrftAWfz54"/>
+<div class="absolute top-4 right-4 bg-green-500 text-[10px] font-black px-2 py-1 rounded uppercase">Heart Centered</div>
+</div>
+<div class="p-6">
+<h4 class="text-xl font-bold mb-1 dark:text-[#FAF9F7] text-[#2C2C2C]">Morning Flow</h4>
+<p class="text-white/60 text-sm mb-4">Focus: Flexibility &amp; Breath. Perfect for starting your day with intention.</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3 text-xs text-white/40">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">schedule</span> 30m</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">signal_cellular_alt</span> Easy</span>
+</div>
+<button class="text-primary font-bold text-sm hover:underline">Join Now</button>
+</div>
+</div>
+</div>
+<!-- Practice Card 2 -->
+<div class="group relative overflow-hidden rounded-2xl glass-card">
+<div class="aspect-video relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Yoga practitioner in a challenging balancing pose" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtV6K49-GVl8rdyR2XQx7xYp_EWYrWKhwvrPgqYt_auzqpQQ3yGgUhCbQX6efP5W_1eUDWaMrrVM2JWlVu6VNYMNNX3pFqRwYRy_FfO9xqyYAU6m26ttYgZx8j6mIgo7KFcHGdYN3tKadqz5Bu9CPgptALpZYfVVq2v4yrEdYt3vP8b32EI9pZWx2nOhQcdDJyduKpL6TqscwHTz05R31bublshaLbsedWERRh-QxsENQea2fFMUG9auXP5rW70m-FGUHbtf_e84A"/>
+<div class="absolute top-4 right-4 bg-primary text-[10px] font-black px-2 py-1 rounded uppercase">Strength</div>
+</div>
+<div class="p-6">
+<h4 class="text-xl font-bold mb-1 dark:text-[#FAF9F7] text-[#2C2C2C]">Power Vinyasa</h4>
+<p class="text-white/60 text-sm mb-4">Focus: Core &amp; Balance. A vigorous flow to build inner heat and stamina.</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3 text-xs text-white/40">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">schedule</span> 45m</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">signal_cellular_alt</span> Expert</span>
+</div>
+<button class="text-primary font-bold text-sm hover:underline">Join Now</button>
+</div>
+</div>
+</div>
+<!-- Practice Card 3 -->
+<div class="group relative overflow-hidden rounded-2xl glass-card">
+<div class="aspect-video relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Yoga session focusing on pain relief and relaxation" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCG8ubP-EzaEihq-prFqJ0stDCrZ1ETAQjR7w8RrDy9Yap-xNeaGtAzK3-NPuv_mxUcUvl7Px-LwMIGFMbUf2q09v25t0jfc8kogUlz9x0rDTcauyLfdcxs7gzapT-sZrqHbmAX1eWhKn4Bf65GWH83IFte0hI4O5eFwuvMAhomRi--j-W_tYCYjGaqlxzCXM74e6gOwH8mL-s8-Uk7YjW-Kfsdw4s4uPc_2CLt2D4GdAX2d6qy2WDkJ7qg4mLTJmUmOL8qP6s5PY"/>
+<div class="absolute top-4 right-4 bg-blue-500 text-[10px] font-black px-2 py-1 rounded uppercase">Healing</div>
+</div>
+<div class="p-6">
+<h4 class="text-xl font-bold mb-1 dark:text-[#FAF9F7] text-[#2C2C2C]">Pain Relief Yoga</h4>
+<p class="text-white/60 text-sm mb-4">Focus: Back &amp; Shoulders. Gentle stretches to release chronic muscle tension.</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3 text-xs text-white/40">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">schedule</span> 20m</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">signal_cellular_alt</span> Easy</span>
+</div>
+<button class="text-primary font-bold text-sm hover:underline">Join Now</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 6. TRAINING (Yellow/Gold) -->
+<section class="py-24 px-8 md:px-20 bg-black/20" id="training">
+<div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+<div class="space-y-8">
+<span class="bg-primary/20 text-primary text-xs font-bold uppercase tracking-[0.2em] px-4 py-2 rounded-lg">Professional Training</span>
+<h2 class="font-serif text-5xl font-bold leading-tight dark:text-[#FAF9F7] text-[#2C2C2C]">Become a Certified <span class="text-primary italic">Yoga Trainer</span></h2>
+<p class="text-lg text-white/70">Our teacher training programs are designed to transform you from a student to a master, blending ancient wisdom with modern pedagogy.</p>
+<ul class="space-y-4">
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<span>Yoga Alliance International Certification</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<span>Deep-dive into Human Anatomy &amp; Physiology</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<span>Chakra Healing &amp; Advanced Meditation Techniques</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<span>Practical Teaching &amp; Business Mentorship</span>
+</li>
+</ul>
+<button class="bg-primary px-10 py-5 rounded-2xl font-bold text-lg hover:scale-105 transition-all shadow-xl shadow-primary/30">Apply for Training</button>
+</div>
+<div class="relative">
+<div class="aspect-square rounded-full border-2 border-primary/20 absolute -inset-10 animate-[spin_20s_linear_infinite]"></div>
+<div class="rounded-3xl overflow-hidden aspect-[4/5] shadow-2xl border border-white/10">
+<img class="w-full h-full object-cover" data-alt="Group of yoga students during a certification training" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXCRlR9XTmJ_BbEeGbI-7pb98ANUeUSf-yWGCKTncllLmLeAnQp59dGPjHBNWHDIGlHWUthF6Idli6yKBumlEmDBX0GWbHfD36Ot_yJ8JWtHS257JWkVq2yk3_Z2R_ATsXCmkmGn5SpYN21UGC1KmAuSUCQc8QlYBwRt9G0W9zoqYGW5jsXvq-qFMNMX9pB2ZiYIynpusG5w-ZbA8C29Z7fJ1XP_0QzEoM3MC52FeUZLdYoAM01ngXZ2fDp2q73VCueB_B1vEJFOQ"/>
+</div>
+</div>
+</div>
+</section>
+<!-- 7. CLASSES (Sacral/Orange) -->
+<section class="py-24 px-8 md:px-20 max-w-7xl mx-auto" id="classes">
+<div class="text-center mb-16">
+<h2 class="font-serif text-4xl mb-4 dark:text-[#FAF9F7] text-[#2C2C2C]">Join Our Classes</h2>
+<div class="h-1 w-20 bg-primary mx-auto mb-6"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Class Card -->
+<div class="glass-card p-6 rounded-2xl group hover:border-primary/50 transition-all">
+<div class="flex justify-between items-start mb-6">
+<div class="p-3 bg-white/5 rounded-xl text-primary">
+<span class="material-symbols-outlined text-3xl">groups</span>
+</div>
+<span class="text-[10px] font-bold bg-white/10 px-2 py-1 rounded">OFFLINE/ONLINE</span>
+</div>
+<h3 class="text-xl font-bold mb-2 dark:text-[#FAF9F7] text-[#2C2C2C]">Group Sessions</h3>
+<p class="text-white/60 text-sm mb-6">Experience the collective energy of a group while maintaining personal focus.</p>
+<button class="w-full py-3 rounded-xl bg-white/5 group-hover:bg-primary transition-colors font-bold">Book Slot</button>
+</div>
+<!-- Class Card -->
+<div class="glass-card p-6 rounded-2xl group hover:border-primary/50 transition-all">
+<div class="flex justify-between items-start mb-6">
+<div class="p-3 bg-white/5 rounded-xl text-primary">
+<span class="material-symbols-outlined text-3xl">self_improvement</span>
+</div>
+<span class="text-[10px] font-bold bg-white/10 px-2 py-1 rounded">PRIVATE</span>
+</div>
+<h3 class="text-xl font-bold mb-2 dark:text-[#FAF9F7] text-[#2C2C2C]">Chakra Healing</h3>
+<p class="text-white/60 text-sm mb-6">1-on-1 sessions specifically targeting your energetic blockages.</p>
+<button class="w-full py-3 rounded-xl bg-white/5 group-hover:bg-primary transition-colors font-bold">Book Slot</button>
+</div>
+<!-- Class Card -->
+<div class="glass-card p-6 rounded-2xl group hover:border-primary/50 transition-all">
+<div class="flex justify-between items-start mb-6">
+<div class="p-3 bg-white/5 rounded-xl text-primary">
+<span class="material-symbols-outlined text-3xl">history_edu</span>
+</div>
+<span class="text-[10px] font-bold bg-white/10 px-2 py-1 rounded">WEEKENDS</span>
+</div>
+<h3 class="text-xl font-bold mb-2 dark:text-[#FAF9F7] text-[#2C2C2C]">Sudarshan Kriya</h3>
+<p class="text-white/60 text-sm mb-6">Learn the powerful rhythmic breathing technique for stress relief.</p>
+<button class="w-full py-3 rounded-xl bg-white/5 group-hover:bg-primary transition-colors font-bold">Book Slot</button>
+</div>
+</div>
+</section>
+<!-- 9. MEET ARTI (Root/Red) -->
+<section class="py-24 px-8 md:px-20 max-w-7xl mx-auto" id="arti">
+<div class="grid md:grid-cols-2 gap-16 items-center">
+<div class="relative order-2 md:order-1">
+<div class="absolute inset-0 bg-primary/20 rounded-3xl -rotate-3 scale-105"></div>
+<img class="relative rounded-3xl w-full aspect-[4/5] object-cover shadow-2xl" data-alt="Portrait of Arti, the lead yoga instructor" src="https://lh3.googleusercontent.com/aida-public/AB6AXuApc3awHxU6sgxSo-L4NfBnbRZrKrZ5RInFUI3f8Euss79InzONdzAxfAh9wHHl2VNr6qF8mZ2rJL6wZpNO1O-s61BGTn_xChrupwGtMDWTjztvlY08HlnW1T_-vkGtJP9iUZRALNFcTJZi7F2Ti1MoUeDN-5U3YUMuWQ7z6BAq4kr4TCz0K1EBuHRBfqiPW9-6DH3Aw2A5XaQHdCa5EiVZLqzw7IBBcetMzkjcFirXeI8teO2cNMQzLONIozAJ9qOr6JEj3jb993M"/>
+</div>
+<div class="space-y-6 order-1 md:order-2">
+<h4 class="text-primary font-black uppercase tracking-widest text-sm dark:text-[#FAF9F7] text-[#2C2C2C]">Lead Instructor</h4>
+<h2 class="font-serif text-5xl dark:text-[#FAF9F7] text-[#2C2C2C]">Meet Arti</h2>
+<p class="text-lg text-white/80 leading-relaxed italic">"My mission is to help you rediscover the stillness that has always been inside you."</p>
+<div class="space-y-4 text-white/60">
+<p>With over 15 years of experience in Hatha, Vinyasa, and Kundalini yoga, Arti has guided thousands toward holistic wellness. Her approach combines rigorous physical discipline with profound spiritual insights.</p>
+<p>Certified in India and internationally recognized, she specializes in Chakra Balancing and the Five Elements (Pancha Bhoota) awakening.</p>
+</div>
+<div class="flex gap-4 pt-6">
+<a class="p-3 rounded-full bg-white/5 hover:bg-primary transition-colors" href="#"><span class="material-symbols-outlined">alternate_email</span></a>
+<a class="p-3 rounded-full bg-white/5 hover:bg-primary transition-colors" href="#"><span class="material-symbols-outlined">video_library</span></a>
+</div>
+</div>
+</div>
+</section>
+<!-- 10. TRUST (Root/Red Footer Area) -->
+<section class="py-24 px-8 md:px-20 max-w-7xl mx-auto border-t border-white/10">
+<div class="text-center mb-16">
+<h2 class="font-serif text-3xl dark:text-[#FAF9F7] text-[#2C2C2C]">Our Approach</h2>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-12">
+<div class="text-center space-y-4">
+<span class="material-symbols-outlined text-4xl text-primary">psychology</span>
+<h3 class="font-bold dark:text-[#FAF9F7] text-[#2C2C2C]">Mindful Body</h3>
+<p class="text-sm text-white/50">Ancient techniques meets modern anatomy.</p>
+</div>
+<div class="text-center space-y-4">
+<span class="material-symbols-outlined text-4xl text-primary">diversity_1</span>
+<h3 class="font-bold dark:text-[#FAF9F7] text-[#2C2C2C]">Holistic Community</h3>
+<p class="text-sm text-white/50">A safe space for growth and sharing.</p>
+</div>
+<div class="text-center space-y-4">
+<span class="material-symbols-outlined text-4xl text-primary">verified</span>
+<h3 class="font-bold dark:text-[#FAF9F7] text-[#2C2C2C]">Expert Guidance</h3>
+<p class="text-sm text-white/50">Certified masters with years of practice.</p>
+</div>
+<div class="text-center space-y-4">
+<span class="material-symbols-outlined text-4xl text-primary">eco</span>
+<h3 class="font-bold dark:text-[#FAF9F7] text-[#2C2C2C]">Pure Intention</h3>
+<p class="text-sm text-white/50">Every breath serves your highest good.</p>
+</div>
+</div>
+</section>
+<!-- 11. FOOTER -->
+<footer class="bg-black/80 py-20 px-8 md:px-20">
+<div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-12">
+<div class="space-y-6">
+<div class="flex items-center gap-2">
+<span class="text-xl font-bold tracking-tight text-white">Antaryatra <span class="text-primary">with Arti</span></span>
+</div>
+<p class="text-sm text-white/40">Awakening the inner energy through authentic yoga and meditation practices.</p>
+</div>
+<div>
+<h4 class="font-bold mb-6 dark:text-[#FAF9F7] text-[#2C2C2C]">Quick Links</h4>
+<ul class="space-y-3 text-sm text-white/60">
+<li><a class="hover:text-primary transition-colors" href="#">Practices</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Chakra Explorer</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Training Programs</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Contact Us</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold mb-6 dark:text-[#FAF9F7] text-[#2C2C2C]">Explore</h4>
+<ul class="space-y-3 text-sm text-white/60">
+<li><a class="hover:text-primary transition-colors" href="#">Blog</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Testimonials</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Terms of Service</a></li>
+</ul>
+</div>
+<div class="space-y-6">
+<h4 class="font-bold dark:text-[#FAF9F7] text-[#2C2C2C]">Stay Connected</h4>
+<div class="flex gap-4">
+<button class="size-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-xl">share</span>
+</button>
+<button class="size-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-xl">language</span>
+</button>
+</div>
+<p class="text-xs text-white/20">© 2026 Antaryatra with Arti. All rights reserved.</p>
+</div>
+</div>
+</footer>
+</body></html>

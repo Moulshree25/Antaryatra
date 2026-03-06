@@ -14,12 +14,30 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+
+        {/* Fonts used in the design */}
+        <link
+          href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;600;700&display=swap"
+          rel="stylesheet"
+        />
+
+        {/* Material icons used throughout the UI */}
+        <link
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+          rel="stylesheet"
+        />
+
+      </head>
+
       <body className="antialiased font-sans">
+
         <div className="pb-24">
           {children}
         </div>
 
         <MobileCTA />
+
       </body>
     </html>
   );
