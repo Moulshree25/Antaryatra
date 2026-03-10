@@ -93,10 +93,16 @@
 <div class="space-y-2">
 <label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Email Address</label>
 <input name="email" class="w-full rounded-xl border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:ring-primary focus:border-primary h-12" placeholder="jane@example.com" type="email"/>
+<p class="text-red-500 text-sm mt-1 hidden" id="emailError">
+Please enter a valid email
+</p>
 </div>
 <div class="space-y-2">
 <label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Phone Number</label>
-<input name="phone" class="w-full rounded-xl border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:ring-primary focus:border-primary h-12" placeholder="+1 (555) 000-0000" type="tel"/>
+<input name="phone" maxlength="10" pattern="[0-9]{10}" inputmode="numeric" class="w-full rounded-xl border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:ring-primary focus:border-primary h-12" placeholder="+91 9876543210" type="tel"/>
+<p class="text-red-500 text-sm mt-1 hidden" id="phoneError">
+Phone number must be exactly 10 digits
+</p>
 </div>
 <div class="space-y-2">
 <label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Session Mode</label>
@@ -104,17 +110,17 @@
 
 <input type="hidden" name="mode" id="modeInput" value="Online">
 
-<button id="modeOnline"
-class="flex-1 bg-white dark:bg-slate-700 rounded-lg shadow-sm text-sm font-bold"
-type="button"
-onclick="setMode('Online')">
+<button
+id="modeOnline"
+class="mode-btn flex-1 bg-white dark:bg-slate-700 rounded-lg shadow-sm text-sm font-bold cursor-pointer"
+type="button">
 Online
 </button>
 
-<button id="modeOffline"
-class="flex-1 text-sm font-bold text-slate-500"
-type="button"
-onclick="setMode('Offline')">
+<button
+id="modeOffline"
+class="mode-btn flex-1 text-sm font-bold text-slate-500 cursor-pointer"
+type="button">
 Offline
 </button>
 
@@ -271,17 +277,22 @@ Offline
 <script>
 function setMode(mode){
 
-  document.getElementById("modeInput").value = mode;
-
   const online = document.getElementById("modeOnline");
   const offline = document.getElementById("modeOffline");
 
+  const modeInput = document.getElementById("modeInput");
+
+  modeInput.value = mode;
+
+  // reset both buttons
+  online.classList.remove("bg-white","shadow-sm","dark:bg-slate-700");
+  offline.classList.remove("bg-white","shadow-sm","dark:bg-slate-700");
+
+  // activate selected button
   if(mode === "Online"){
-    online.classList.add("bg-white","shadow-sm");
-    offline.classList.remove("bg-white","shadow-sm");
-  }else{
-    offline.classList.add("bg-white","shadow-sm");
-    online.classList.remove("bg-white","shadow-sm");
+    online.classList.add("bg-white","shadow-sm","dark:bg-slate-700");
+  } else {
+    offline.classList.add("bg-white","shadow-sm","dark:bg-slate-700");
   }
 
 }
@@ -312,15 +323,58 @@ form.addEventListener("submit", async function(e) {
 
   const formData = new FormData(form);
 
-  const data = {
-    name: formData.get("name"),
-    email: formData.get("email"),
-    phone: formData.get("phone"),
-    mode: formData.get("mode"),
-    goal: formData.get("goal"),
-    practices: formData.getAll("practices[]"),
-    notes: formData.get("notes")
-  };
+  const name = formData.get("name");
+  const email = formData.get("email");
+  const phone = formData.get("phone");
+  const mode = formData.get("mode");
+  const goal = formData.get("goal");
+  const practices = formData.getAll("practices[]");
+  const notes = formData.get("notes");
+
+  // STRICT VALIDATION
+  // hide previous errors
+document.getElementById("emailError").classList.add("hidden");
+document.getElementById("phoneError").classList.add("hidden");
+
+let valid = true;
+
+// EMAIL VALIDATION
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+if(!email || !emailPattern.test(email)){
+  document.getElementById("emailError").classList.remove("hidden");
+  valid = false;
+}
+
+
+// PHONE VALIDATION (exactly 10 digits)
+const phonePattern = /^[0-9]{10}$/;
+
+if(!phone || !phonePattern.test(phone)){
+  document.getElementById("phoneError").classList.remove("hidden");
+  valid = false;
+}
+
+
+// stop submission if invalid
+// stop submission if invalid
+if(!valid){
+  return;
+}
+
+
+// SEND DATA TO BACKEND
+const data = {
+  name,
+  email,
+  phone,
+  mode,
+  goal,
+  practices,
+  notes
+};
+
+try{
 
   const res = await fetch("/api/booking", {
     method: "POST",
@@ -331,16 +385,18 @@ form.addEventListener("submit", async function(e) {
   });
 
   if(res.ok){
-
     window.location.href = "/booking/success";
-
-  } else {
-
+  }else{
     alert("Booking failed. Please try again.");
-
   }
+
+}catch(err){
+  console.error(err);
+  alert("Server error. Please try again.");
+}
 
 });
 
 </script>
-</body></html>
+</body>
+</html>
