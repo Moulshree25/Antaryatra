@@ -1,45 +1,29 @@
-import { NextResponse } from "next/server";
-import pool from "@/lib/db";
+import { prisma } from "@/lib/prisma";
 
 export async function POST(req: Request) {
   try {
-
     const data = await req.json();
 
     const { name, email, phone, mode, goal, practices, notes } = data;
 
-    const query = `
-      INSERT INTO bookings
-      (name,email,phone,mode,goal,practices,notes)
-      VALUES ($1,$2,$3,$4,$5,$6,$7)
-      RETURNING id
-    `;
-
-    const values = [
-      name,
-      email,
-      phone,
-      mode,
-      goal,
-      practices,
-      notes
-    ];
-
-    const result = await pool.query(query, values);
-
-    return NextResponse.json({
-      success: true,
-      bookingId: result.rows[0].id
+    const booking = await prisma.booking.create({
+      data: {
+        name,
+        email,
+        phone,
+        mode,
+        goal,
+        practices,
+        notes,
+      },
     });
 
+    return Response.json({
+      success: true,
+      bookingId: booking.id,
+    });
   } catch (error) {
-
     console.error(error);
-
-    return NextResponse.json(
-      { success: false },
-      { status: 500 }
-    );
-
+    return Response.json({ success: false }, { status: 500 });
   }
 }
