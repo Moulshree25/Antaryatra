@@ -110,11 +110,11 @@ Phone number must be exactly 10 digits
 
 <input type="hidden" name="mode" id="modeInput" value="Online">
 
-<button id="modeOnline" onclick="setMode('Online')" class="flex-1 py-3 rounded-full text-center transition-all bg-gray-100 text-gray-700">
+<button type="button" id="modeOnline" onclick="setMode('Online')" class="flex-1 py-3 rounded-full text-center transition-all bg-gray-100 text-gray-700">
   Online
 </button>
 
-<button id="modeOffline" onclick="setMode('Offline')" class="flex-1 py-3 rounded-full text-center transition-all bg-gray-100 text-gray-700">
+<button type="button" id="modeOffline" onclick="setMode('Offline')" class="flex-1 py-3 rounded-full text-center transition-all bg-gray-100 text-gray-700">
   Offline
 </button>
 
@@ -327,13 +327,13 @@ if(!valid){
 
 // SEND DATA TO BACKEND
 const data = {
-  name: formData.get("name")?.toString().trim(),
-  email: formData.get("email")?.toString().trim(),
-  phone: formData.get("phone")?.toString().trim(),
-  mode: formData.get("mode"),
-  goal: formData.get("goal") || null,
-  practices: formData.getAll("practices[]"),
-  notes: formData.get("notes")?.toString().trim() || null
+  name,
+  email,
+  phone,
+  mode,
+  goal,
+  practices,
+  notes
 };
 
 console.log("SENDING DATA:", data);
