@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import "./globals.css";
 import MobileCTA from "../components/MobileCTA";
 
 export const metadata: Metadata = {
