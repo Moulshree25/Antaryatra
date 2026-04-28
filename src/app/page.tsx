@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-"use client";
-
-import { useEffect, useState } from "react";
-
-export default function Page() {
-  return (
-    <div>
-      Homepage
-    </div>
-  );
-=======
 "use client";
 
 import { useEffect, useState } from "react";
@@ -28,6 +16,7 @@ export default function HomePage() {
   return (
     <iframe
       srcDoc={html}
+      title="Antaryatra Homepage"
       style={{
         width: "100%",
         height: "100vh",
@@ -35,5 +24,4 @@ export default function HomePage() {
       }}
     />
   );
->>>>>>> 079308fbca239f400196663a535f4b6d2f619020
 }

@@ -1,8 +1,32 @@
 // src/app/admin/page.tsx
 // DO NOT convert to JSX. HTML is pasted as-is via dangerouslySetInnerHTML.
+"use client";
+
+import { useEffect, useState } from "react";
 
 export default function AdminPage() {
-  const html = `
+  const [html, setHtml] = useState("");
+
+  useEffect(() => {
+    async function load() {
+      const res = await fetch("/api/admin/bookings");
+      const data = await res.json();
+
+      const rows = data.map((b: any) => `
+        <tr>
+          <td>${b.name}</td>
+          <td>${b.email}</td>
+          <td>${b.mode}</td>
+          <td>${b.goal}</td>
+          <td>${new Date(b.createdAt).toLocaleDateString()}</td>
+          <td>${b.status || "Pending"}</td>
+          <td>
+            <button data-id="${b.id}" class="delete-btn">Delete</button>
+          </td>
+        </tr>
+      `).join("");
+
+      const htmlTemplate = `
 <!-- SideNavBar -->
 <aside class="fixed left-0 top-0 h-full flex flex-col p-4 border-r-0 bg-slate-50 dark:bg-slate-950 w-64 z-40">
   <div class="mb-8 px-4 py-6">
@@ -252,10 +276,26 @@ export default function AdminPage() {
 </button>
 `;
 
+  setHtml(htmlTemplate);
+  setTimeout(() => {
+  document.querySelectorAll(".delete-btn").forEach(btn => {
+    btn.addEventListener("click", async (e: any) => {
+      const id = e.target.getAttribute("data-id");
+
+      await fetch(`/api/admin/bookings/${id}`, {
+        method: "DELETE"
+      });
+
+      location.reload();
+    });
+  });
+}, 100);
+    }
+
+    load();
+  }, []);
+
   return (
-    <div
-      className="bg-surface text-on-surface flex min-h-screen"
-      dangerouslySetInnerHTML={{ __html: html }}
-    />
+    <div dangerouslySetInnerHTML={{ __html: html }} />
   );
 }
