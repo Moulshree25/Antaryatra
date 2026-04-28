@@ -19,10 +19,13 @@ export default function BookingPage() {
             body: JSON.stringify(event.data.payload),
           });
 
-          if (res.ok) {
+          const result = await res.json();
+
+if (res.ok && result.success) {
   window.location.href = "/booking/success";
 } else {
-  alert("Booking failed");
+  console.error("API ERROR:", result);
+  alert(result.message || "Booking failed");
 }
 
         } catch (err) {
@@ -43,4 +46,5 @@ export default function BookingPage() {
       style={{ width: "100%", height: "100vh", border: "none" }}
     />
   );
+  
 }
