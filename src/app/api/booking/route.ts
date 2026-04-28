@@ -3,13 +3,14 @@ import { prisma } from "../../../lib/prisma";
 import { z } from "zod";
 
 const bookingSchema = z.object({
-  name: z.string().min(2).max(100),
+  name: z.string().min(2),
   email: z.string().email(),
-  phone: z.string().min(10).max(20),
-  mode: z.string().min(2).max(100),
-  goal: z.string().min(2).max(255),
-  practices: z.array(z.string()).optional(),
-  notes: z.string().max(255).optional(),
+  phone: z.string().min(10),
+  mode: z.string(),
+
+  goal: z.string().optional(),               
+  practices: z.array(z.string()).optional(), 
+  notes: z.string().optional()               
 });
 
 // ✅ GET (for admin dashboard)
