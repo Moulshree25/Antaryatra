@@ -20,10 +20,10 @@ export default function BookingPage() {
           });
 
           if (res.ok) {
-            alert("Booking successful!");
-          } else {
-            alert("Booking failed");
-          }
+  window.location.href = "/booking/success";
+} else {
+  alert("Booking failed");
+}
 
         } catch (err) {
           console.error(err);
