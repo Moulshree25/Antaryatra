@@ -41,9 +41,14 @@ if (res.ok && result.success) {
   }, []);
 
   return (
-  <div>
-    <h1>Booking Page</h1>
-  </div>
+  <iframe
+    src="/booking-ui.html"
+    style={{
+      width: "100%",
+      height: "100vh",
+      border: "none",
+    }}
+  />
 );
   
 }
