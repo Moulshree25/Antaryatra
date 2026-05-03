@@ -159,6 +159,104 @@ async function deleteBooking(id){
   }
 
 }
+function goToBooking(){
+
+  window.location.href = "/booking";
+
+}
+
+
+async function exportBookings(){
+
+  try{
+
+    const res =
+      await fetch("/api/admin/bookings");
+
+    const result =
+      await res.json();
+
+    const bookings =
+      result.bookings || result;
+
+    if(!bookings.length){
+
+      alert("No bookings found");
+
+      return;
+
+    }
+
+    const csvRows = [];
+
+    csvRows.push(
+      "Name,Email,Phone,Mode,Goal,Practices"
+    );
+
+
+    bookings.forEach(function(b){
+
+      const practices =
+        Array.isArray(b.practices)
+          ? b.practices.join("|")
+          : (b.practices || "");
+
+      csvRows.push(
+        [
+          b.name || "",
+          b.email || "",
+          b.phone || "",
+          b.mode || "",
+          b.goal || "",
+          practices
+        ].join(",")
+      );
+
+    });
+
+
+    const csv =
+      csvRows.join("\n");
+
+
+    const blob =
+      new Blob(
+        [csv],
+        {
+          type: "text/csv"
+        }
+      );
+
+
+    const url =
+      URL.createObjectURL(blob);
+
+
+    const a =
+      document.createElement("a");
+
+
+    a.href = url;
+
+    a.download =
+      "bookings.csv";
+
+
+    a.click();
+
+
+    URL.revokeObjectURL(url);
+
+  }
+  catch(err){
+
+    console.error(err);
+
+    alert("Export failed");
+
+  }
+
+}
 
 </script>
 <body class="bg-surface text-on-surface min-h-screen">
@@ -248,14 +346,18 @@ async function deleteBooking(id){
 <p class="text-slate-500 text-lg max-w-xl">Your wellness center is currently quiet. Start by adding your first client or exploring your new management toolkit.</p>
 </div>
 <div class="flex items-center gap-4">
-<button class="px-6 py-3 bg-surface-container-high text-primary font-bold rounded-xl flex items-center gap-2 hover:bg-surface-container-highest transition-all group">
+<button 
+onclick="exportBookings()"
+class="px-6 py-3 bg-surface-container-high text-primary font-bold rounded-xl flex items-center gap-2 hover:bg-surface-container-highest transition-all group">
 <span class="material-symbols-outlined group-hover:scale-110 transition-transform" data-icon="ios_share">ios_share</span>
                         Export
                     </button>
-<button class="px-8 py-3 bg-gradient-to-br from-primary to-primary-container text-white font-bold rounded-xl flex items-center gap-2 shadow-xl shadow-primary/30 hover:opacity-90 transition-all group">
-<span class="material-symbols-outlined group-hover:rotate-90 transition-transform" data-icon="calendar_add_on">calendar_add_on</span>
-                        Add New Booking
-                    </button>
+<button
+  onclick="goToBooking()"
+  class="px-6 py-3 bg-surface-container-high text-primary font-bold rounded-xl flex items-center gap-2 hover:bg-surface-container-highest transition-all group">
+  <span class="material-symbols-outlined group-hover:rotate-90 transition-transform" data-icon="calendar_add_on">calendar_add_on</span>
+  Add New Booking
+</button>
 </div>
 </section>
 <!-- Bento Grid Empty State -->
