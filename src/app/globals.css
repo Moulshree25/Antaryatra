@@ -1,3 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+:root {
+  --primary: #546253;
+  --primary-container: #9aa998;
+  --primary-fixed: #d7e7d4;
+
+  --secondary: #974802;
+  --secondary-container: #ff9a55;
+
+  --surface: #f8f9fa;
+  --surface-low: #f3f4f5;
+  --surface-lowest: #ffffff;
+  --surface-high: #e7e8e9;
+
+  --on-surface: #191c1d;
+  --outline-variant: #c4c8c0;
+}
+
+
+body {
+  font-family: "Inter", sans-serif;
+  background: var(--surface);
+  color: var(--on-surface);
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Manrope", sans-serif;
+}

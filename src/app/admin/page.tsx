@@ -1,12 +1,16 @@
+import Sidebar from "@/components/admin/Sidebar";
+import Header from "@/components/admin/Header";
+import Dashboard from "@/components/admin/Dashboard";
+
 export default function AdminPage() {
   return (
-    <iframe
-      src="/admin-ui.html"
-      style={{
-        width: "100%",
-        height: "100vh",
-        border: "none"
-      }}
-    />
+    <div className="flex min-h-screen">
+      <Sidebar />
+
+      <div className="flex-1">
+        <Header />
+        <Dashboard />
+      </div>
+    </div>
   );
 }

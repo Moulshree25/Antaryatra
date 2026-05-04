@@ -1,176 +1,19 @@
 <!DOCTYPE html>
 
-<html class="light" lang="en"><head>
+<html class="light" lang="en">
+
+<head>
+
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+
 <title>Restorative Admin - Dashboard Overview</title>
+
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        h1, h2, h3, .font-headline {
-            font-family: 'Manrope', sans-serif;
-        }
-    </style>
-<script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            "colors": {
-                    "primary": "#546253",
-                    "outline-variant": "#c4c8c0",
-                    "surface-container-lowest": "#ffffff",
-                    "on-secondary": "#ffffff",
-                    "surface": "#f8f9fa",
-                    "secondary-container": "#ff9a55",
-                    "on-tertiary": "#ffffff",
-                    "on-tertiary-fixed-variant": "#3c475a",
-                    "inverse-surface": "#2e3132",
-                    "tertiary-fixed-dim": "#bcc7dd",
-                    "secondary-fixed": "#ffdbc7",
-                    "on-error": "#ffffff",
-                    "tertiary-fixed": "#d8e3fa",
-                    "on-surface-variant": "#444842",
-                    "surface-bright": "#f8f9fa",
-                    "on-secondary-fixed-variant": "#733500",
-                    "on-primary": "#ffffff",
-                    "inverse-primary": "#bbcbb9",
-                    "error": "#ba1a1a",
-                    "on-secondary-fixed": "#311300",
-                    "background": "#f8f9fa",
-                    "surface-variant": "#e1e3e4",
-                    "surface-tint": "#546253",
-                    "primary-fixed": "#d7e7d4",
-                    "on-background": "#191c1d",
-                    "on-surface": "#191c1d",
-                    "outline": "#747872",
-                    "surface-container-low": "#f3f4f5",
-                    "surface-container-highest": "#e1e3e4",
-                    "secondary": "#974802",
-                    "error-container": "#ffdad6",
-                    "surface-dim": "#d9dadb",
-                    "on-tertiary-fixed": "#111c2c",
-                    "primary-container": "#9aa998",
-                    "on-error-container": "#93000a",
-                    "primary-fixed-dim": "#bbcbb9",
-                    "surface-container": "#edeeef",
-                    "on-tertiary-container": "#303b4d",
-                    "inverse-on-surface": "#f0f1f2",
-                    "on-primary-fixed": "#121e13",
-                    "surface-container-high": "#e7e8e9",
-                    "tertiary": "#545f72",
-                    "tertiary-container": "#9aa5bb",
-                    "on-secondary-container": "#713400",
-                    "on-primary-fixed-variant": "#3d4a3d",
-                    "on-primary-container": "#313e31",
-                    "secondary-fixed-dim": "#ffb689"
-            },
-            "borderRadius": {
-                    "DEFAULT": "0.25rem",
-                    "lg": "0.5rem",
-                    "xl": "0.75rem",
-                    "full": "9999px"
-            },
-            "fontFamily": {
-                    "headline": ["Manrope"],
-                    "display": ["Manrope"],
-                    "body": ["Inter"],
-                    "label": ["Inter"]
-            }
-          },
-        },
-      }
-    </script>
-</head>
+
 <script>
 
-document.addEventListener("DOMContentLoaded", async function(){
-
-  const container =
-    document.getElementById("bookingsContainer");
-
-  if(!container) return;
-
-  const res =
-    await fetch("/api/admin/bookings");
-
-  const result =
-    await res.json();
-
-  const bookings =
-    result.bookings || result;
-
-const revenueElement =
-  document.getElementById("revenueValue");
-
-const registrationElement =
-  document.getElementById("registrationValue");
-
-
-const bookingCount =
-  bookings.length;
-
-
-const revenue =
-  bookingCount * 999;
-
-
-if(revenueElement){
-
-  revenueElement.innerText =
-    "₹" + revenue;
-
-}
-
-
-if(registrationElement){
-
-  registrationElement.innerText =
-    bookingCount;
-
-}
-
-  container.innerHTML =
-    bookings.map(function(b){
-
-      const practices =
-        Array.isArray(b.practices)
-          ? b.practices.join(", ")
-          : (b.practices || "");
-
-      return `
-        <div class="bg-white p-6 rounded-xl border">
-
-          <p><strong>Name:</strong> ${b.name}</p>
-          <p><strong>Email:</strong> ${b.email}</p>
-          <p><strong>Phone:</strong> ${b.phone}</p>
-          <p><strong>Mode:</strong> ${b.mode}</p>
-          <p><strong>Goal:</strong> ${b.goal || ""}</p>
-          <p><strong>Practices:</strong> ${practices}</p>
-
-          <button
-            onclick="deleteBooking('${b.id}')"
-            class="mt-4 bg-red-500 text-white px-4 py-2 rounded">
-
-            Delete
-
-          </button>
-
-        </div>
-      `;
-
-    }).join("");
-
-});
-
+let allBookings = [];
 
 async function deleteBooking(id){
 
@@ -189,9 +32,12 @@ async function deleteBooking(id){
   }
 
 }
+
+
 function goToBooking(){
 
-  window.location.href = "/booking";
+  window.location.href =
+    "/booking";
 
 }
 
@@ -289,6 +135,247 @@ async function exportBookings(){
 }
 
 </script>
+<script>
+
+document.addEventListener("DOMContentLoaded", async function(){
+
+  const container =
+    document.getElementById("bookingsContainer");
+
+  if(!container) return;
+
+  const res =
+    await fetch("/api/admin/bookings");
+
+  const result =
+    await res.json();
+
+  const bookings =
+    result.bookings || result;
+
+allBookings = bookings;
+renderBookings(bookings);
+
+const revenueElement =
+  document.getElementById("revenueValue");
+
+const registrationElement =
+  document.getElementById("registrationValue");
+
+
+const bookingCount =
+  bookings.length;
+
+
+const revenue =
+  bookingCount * 999;
+
+
+if(revenueElement){
+
+  revenueElement.innerText =
+    "₹" + revenue;
+
+}
+
+
+if(registrationElement){
+
+  registrationElement.innerText =
+    bookingCount;
+
+}
+
+  function renderBookings(bookings){
+
+  const container =
+    document.getElementById(
+      "bookingsContainer"
+    );
+
+  if(!container) return;
+
+
+  container.innerHTML =
+    bookings.map(function(b){
+
+      const practices =
+        Array.isArray(b.practices)
+          ? b.practices.join(", ")
+          : (b.practices || "");
+
+      return `
+        <div class="bg-white p-6 rounded-xl border">
+
+          <p><strong>Name:</strong> ${b.name}</p>
+          <p><strong>Email:</strong> ${b.email}</p>
+          <p><strong>Phone:</strong> ${b.phone}</p>
+          <p><strong>Mode:</strong> ${b.mode}</p>
+          <p><strong>Goal:</strong> ${b.goal || ""}</p>
+          <p><strong>Practices:</strong> ${practices}</p>
+
+          <button
+            onclick="deleteBooking('${b.id}')"
+            class="mt-4 bg-red-500 text-white px-4 py-2 rounded">
+
+            Delete
+
+          </button>
+
+        </div>
+      `;
+
+    }).join("");
+
+}
+
+
+async function exportBookings(){
+
+  try{
+
+    const res =
+      await fetch("/api/admin/bookings");
+
+    const result =
+      await res.json();
+
+    const bookings =
+      result.bookings || result;
+
+    if(!bookings.length){
+
+      alert("No bookings found");
+
+      return;
+
+    }
+
+    const csvRows = [];
+
+    csvRows.push(
+      "Name,Email,Phone,Mode,Goal,Practices"
+    );
+
+
+    bookings.forEach(function(b){
+
+      const practices =
+        Array.isArray(b.practices)
+          ? b.practices.join("|")
+          : (b.practices || "");
+
+      csvRows.push(
+        [
+          b.name || "",
+          b.email || "",
+          b.phone || "",
+          b.mode || "",
+          b.goal || "",
+          practices
+        ].join(",")
+      );
+
+    });
+
+
+    const csv =
+      csvRows.join("\n");
+
+
+    const blob =
+      new Blob(
+        [csv],
+        {
+          type: "text/csv"
+        }
+      );
+
+
+    const url =
+      URL.createObjectURL(blob);
+
+
+    const a =
+      document.createElement("a");
+
+
+    a.href = url;
+
+    a.download =
+      "bookings.csv";
+
+
+    a.click();
+
+
+    URL.revokeObjectURL(url);
+
+  }
+  catch(err){
+
+    console.error(err);
+
+    alert("Export failed");
+
+  }
+
+}
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
+
+    const input =
+      document.getElementById(
+        "searchInput"
+      );
+
+    if(!input) return;
+
+    input.addEventListener(
+      "input",
+      function(){
+
+        const query =
+          input.value
+            .toLowerCase()
+            .trim();
+
+        const filtered =
+          allBookings.filter(function(b){
+
+            return (
+              (b.name || "")
+                .toLowerCase()
+                .includes(query)
+
+              ||
+
+              (b.email || "")
+                .toLowerCase()
+                .includes(query)
+
+              ||
+
+              (b.phone || "")
+                .toString()
+                .includes(query)
+
+            );
+
+          });
+
+
+        renderBookings(filtered);
+
+      }
+    );
+
+  }
+);
+
+</script>
 <body class="bg-surface text-on-surface min-h-screen">
 <!-- SideNavBar Anchor -->
 <aside class="h-screen w-64 fixed left-0 top-0 hidden md:flex flex-col bg-[#f3f4f5] py-8 gap-y-2 z-40">
@@ -343,7 +430,7 @@ async function exportBookings(){
 <div class="flex items-center gap-4">
 <div class="relative">
 <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" data-icon="search">search</span>
-<input class="bg-surface-container-low border-none rounded-full pl-10 pr-4 py-2 text-sm w-64 focus:ring-1 focus:ring-primary focus:bg-surface-container-lowest transition-all" placeholder="Search restorative services..." type="text"/>
+<input id="searchInput" class="bg-surface-container-low border-none rounded-full pl-10 pr-4 py-2 text-sm w-64 focus:ring-1 focus:ring-primary focus:bg-surface-container-lowest transition-all" placeholder="Search restorative services..." type="text"/>
 </div>
 </div>
 <div class="flex items-center gap-6">
@@ -470,4 +557,123 @@ class="px-6 py-3 bg-surface-container-high text-primary font-bold rounded-xl fle
 <span class="text-[10px] font-medium">Data</span>
 </a>
 </div>
-</body></html>
+<script>
+let allBookings = [];
+
+async function deleteBooking(id){
+  const res = await fetch("/api/admin/bookings/" + id,{
+    method:"DELETE"
+  });
+
+  if(res.ok){
+    location.reload();
+  }
+}
+
+function goToBooking(){
+  window.location.href="/booking";
+}
+
+async function exportBookings(){
+  const res = await fetch("/api/admin/bookings");
+  const result = await res.json();
+
+  const bookings =
+    result.bookings || result;
+
+  const rows = [
+    "Name,Email,Phone,Mode,Goal,Practices"
+  ];
+
+  bookings.forEach(function(b){
+
+    const practices =
+      Array.isArray(b.practices)
+        ? b.practices.join("|")
+        : (b.practices || "");
+
+    rows.push(
+      [
+        b.name || "",
+        b.email || "",
+        b.phone || "",
+        b.mode || "",
+        b.goal || "",
+        practices
+      ].join(",")
+    );
+  });
+
+  const blob =
+    new Blob(
+      [rows.join("\n")],
+      {type:"text/csv"}
+    );
+
+  const url =
+    URL.createObjectURL(blob);
+
+  const a =
+    document.createElement("a");
+
+  a.href = url;
+  a.download = "bookings.csv";
+  a.click();
+
+  URL.revokeObjectURL(url);
+}
+
+document.addEventListener(
+  "DOMContentLoaded",
+  async function(){
+
+    const res =
+      await fetch("/api/admin/bookings");
+
+    const result =
+      await res.json();
+
+    const bookings =
+      result.bookings || result;
+
+    allBookings = bookings;
+
+    const container =
+      document.getElementById(
+        "bookingsContainer"
+      );
+
+    if(container){
+
+      container.innerHTML =
+        bookings.map(function(b){
+
+          const practices =
+            Array.isArray(b.practices)
+              ? b.practices.join(", ")
+              : (b.practices || "");
+
+          return `
+            <div class="bg-white p-6 rounded-xl border">
+              <p><strong>Name:</strong> ${b.name}</p>
+              <p><strong>Email:</strong> ${b.email}</p>
+              <p><strong>Phone:</strong> ${b.phone}</p>
+              <p><strong>Mode:</strong> ${b.mode}</p>
+              <p><strong>Goal:</strong> ${b.goal || ""}</p>
+              <p><strong>Practices:</strong> ${practices}</p>
+
+              <button
+                onclick="deleteBooking('${b.id}')"
+                class="mt-4 bg-red-500 text-white px-4 py-2 rounded">
+
+                Delete
+              </button>
+            </div>
+          `;
+        }).join("");
+    }
+  }
+);
+</script>
+</body>
+</html>
