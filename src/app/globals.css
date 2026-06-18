@@ -1,9 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;700;800&display=swap');
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+@import "tailwindcss";
 
 :root {
   --primary: #546253;
@@ -19,22 +14,20 @@
   --surface-high: #e7e8e9;
 
   --on-surface: #191c1d;
+
   --outline-variant: #c4c8c0;
 }
 
-
+html,
 body {
-  font-family: "Inter", sans-serif;
+  margin: 0;
+  padding: 0;
+
+  font-family:
+    Inter,
+    sans-serif;
+
   background: var(--surface);
+
   color: var(--on-surface);
-}
-
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: "Manrope", sans-serif;
 }

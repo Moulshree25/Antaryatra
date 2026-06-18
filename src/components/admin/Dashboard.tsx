@@ -12,15 +12,15 @@ import {
 
 export default function Dashboard() {
   return (
-    <div className="p-8 max-w-7xl mx-auto">
+    <div className="px-10 pt-10 pb-12 max-w-[1380px] mx-auto">
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12"
+        className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10"
       >
         <div className="max-w-xl">
           <span className="text-[10px] font-bold tracking-[0.15em] text-primary uppercase mb-2 block">System Overview</span>
-          <h2 className="text-5xl font-display font-extrabold text-on-surface tracking-tighter leading-none mb-4">Welcome to Restorative Admin</h2>
+          <h2 className="text-[64px] font-display font-extrabold text-on-surface tracking-tighter leading-none mb-4">Welcome to Restorative Admin</h2>
           <p className="text-on-surface-variant text-lg leading-relaxed">
             Your wellness center is currently quiet. Start by adding your first client or exploring your new management toolkit.
           </p>
@@ -29,7 +29,7 @@ export default function Dashboard() {
            <button className="bg-surface-container-high hover:bg-surface-container-highest text-primary px-6 py-3 rounded-xl flex items-center gap-2 font-bold transition-all">
             Export Report
           </button>
-          <button className="bg-primary hover:bg-primary-container text-white px-8 py-4 rounded-xl flex items-center gap-2 font-bold transition-all shadow-lg shadow-primary/20 hover:-translate-y-1">
+          <button className="bg-[#73816C] hover:bg-[#73816C]-container text-white px-8 py-4 rounded-xl flex items-center gap-2 font-bold transition-all shadow-lg shadow-primary/20 hover:-translate-y-1">
             <Plus size={20} />
             Add New Booking
           </button>
@@ -42,7 +42,7 @@ export default function Dashboard() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.1 }}
-          className="md:col-span-8 bg-surface-container-lowest p-8 rounded-[2rem] flex flex-col items-center justify-center min-h-[400px] shadow-[0px_20px_40px_rgba(25,28,29,0.06)] relative overflow-hidden group"
+          className="md:col-span-8 bg-white p-10 rounded-[28px] flex flex-col items-center justify-center min-h-[400px] shadow-[0_10px_40px_rgba(0,0,0,0.03)] relative overflow-hidden group"
         >
           <div className="absolute inset-0 opacity-5 flex items-end justify-center pointer-events-none transition-transform duration-1000 group-hover:scale-110">
             <svg className="w-full h-48 text-primary" viewBox="0 0 1000 200" preserveAspectRatio="none">
@@ -50,7 +50,7 @@ export default function Dashboard() {
             </svg>
           </div>
           
-          <div className="bg-primary-fixed w-16 h-16 rounded-full flex items-center justify-center text-primary mb-6 shadow-inner">
+          <div className="bg-[#DCE7D5] w-20 h-20 rounded-[28px] flex items-center justify-center text-primary mb-6 shadow-inner">
             <BarChart size={32} />
           </div>
           <h3 className="text-xl font-display font-bold mb-2 text-on-surface text-center">No activity detected yet</h3>
@@ -68,7 +68,7 @@ export default function Dashboard() {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
-            className="bg-surface-container-lowest p-8 rounded-2xl shadow-[0px_20px_40px_rgba(25,28,29,0.06)] flex flex-col items-center text-center h-[188px] justify-center"
+            className="bg-surface-container-lowest p-8 rounded-[28px] shadow-[0_10px_40px_rgba(0,0,0,0.03)] flex flex-col items-center text-center h-[188px] justify-center"
           >
             <BarChart size={32} className="text-secondary mb-3" />
             <h4 className="text-[10px] font-bold text-on-surface-variant/40 uppercase tracking-widest mb-1">Total Revenue</h4>
@@ -80,7 +80,7 @@ export default function Dashboard() {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
-            className="bg-surface-container-lowest p-8 rounded-2xl shadow-[0px_20px_40px_rgba(25,28,29,0.06)] flex flex-col items-center text-center h-[188px] justify-center"
+            className="bg-surface-container-lowest p-8 rounded-[28px] shadow-[0px_20px_40px_rgba(25,28,29,0.06)] flex flex-col items-center text-center h-[188px] justify-center"
           >
             <Users size={32} className="text-primary mb-3" />
             <h4 className="text-[10px] font-bold text-on-surface-variant/40 uppercase tracking-widest mb-1">New Registrations</h4>
@@ -94,23 +94,23 @@ export default function Dashboard() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="md:col-span-12 bg-surface-container-low rounded-[2rem] p-1 shadow-sm"
+          className="md:col-span-12 bg-surface-container-low rounded-[28px] p-1 shadow-sm"
         >
           <div className="bg-surface-container-lowest rounded-[1.9rem] p-8">
             <div className="flex items-center justify-between mb-8">
               <h3 className="text-xl font-display font-bold text-on-surface">Upcoming Appointments</h3>
-              <span className="bg-primary-fixed text-primary px-3 py-1 rounded-full text-xs font-bold">Upcoming: 0</span>
+              <span className="bg-[#73816C]-fixed text-primary px-3 py-1 rounded-full text-xs font-bold">Upcoming: 0</span>
             </div>
             
-            <div className="flex flex-col items-center justify-center py-20 border-2 border-dashed border-outline-variant/20 rounded-2xl bg-surface/30">
-              <div className="w-20 h-20 bg-surface-container-low rounded-2xl flex items-center justify-center mb-4">
+            <div className="flex flex-col items-center justify-center py-20 border-2 border-dashed border-outline-variant/20 rounded-[28px] bg-surface/30">
+              <div className="w-20 h-20 bg-surface-container-low rounded-[28px] flex items-center justify-center mb-4">
                 <LayoutDashboard size={40} className="text-on-surface-variant/20" />
               </div>
               <p className="text-lg font-display font-bold text-on-surface">Your schedule is clear</p>
               <p className="text-on-surface-variant mb-6 text-center max-w-sm">
                 There are no upcoming appointments scheduled for this week.
               </p>
-              <button className="px-8 py-3 border-2 border-primary text-primary font-bold rounded-xl hover:bg-primary hover:text-white transition-all active:scale-95">
+              <button className="px-8 py-3 border-2 border-primary text-primary font-bold rounded-xl hover:bg-[#73816C] hover:text-white transition-all active:scale-95">
                 Setup Availability
               </button>
             </div>
