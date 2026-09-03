@@ -89,20 +89,17 @@
 <div class="space-y-2">
 <label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Full Name</label>
 <input name="name" class="w-full rounded-xl border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:ring-primary focus:border-primary h-12" placeholder="e.g. Jane Doe" type="text"/>
+<p class="text-red-500 text-sm mt-1 hidden" id="nameError"></p>
 </div>
 <div class="space-y-2">
 <label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Email Address</label>
-<input name="email" class="w-full rounded-xl border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:ring-primary focus:border-primary h-12" placeholder="jane@example.com" type="email"/>
-<p class="text-red-500 text-sm mt-1 hidden" id="emailError">
-Please enter a valid email
-</p>
+<input name="email" inputmode="email" class="w-full rounded-xl border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:ring-primary focus:border-primary h-12" placeholder="jane@example.com" type="text"/>
+<p class="text-red-500 text-sm mt-1 hidden" id="emailError"></p>
 </div>
 <div class="space-y-2">
 <label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Phone Number</label>
-<input name="phone" maxlength="10" pattern="[0-9]{10}" inputmode="numeric" class="w-full rounded-xl border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:ring-primary focus:border-primary h-12" placeholder="+91 9876543210" type="tel"/>
-<p class="text-red-500 text-sm mt-1 hidden" id="phoneError">
-Phone number must be exactly 10 digits
-</p>
+<input name="phone" inputmode="numeric" class="w-full rounded-xl border-slate-200 dark:border-slate-700 dark:bg-slate-800 focus:ring-primary focus:border-primary h-12" placeholder="+91 9876543210" type="tel"/>
+<p class="text-red-500 text-sm mt-1 hidden" id="phoneError"></p>
 </div>
 <div class="space-y-2">
 <label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Session Mode</label>
@@ -293,38 +290,6 @@ form.addEventListener("submit", async function(e) {
   const practices = formData.getAll("practices[]");
   const notes = formData.get("notes");
 
-  // STRICT VALIDATION
-  // hide previous errors
-document.getElementById("emailError").classList.add("hidden");
-document.getElementById("phoneError").classList.add("hidden");
-
-let valid = true;
-
-// EMAIL VALIDATION
-const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-if(!email || !emailPattern.test(email)){
-  document.getElementById("emailError").classList.remove("hidden");
-  valid = false;
-}
-
-
-// PHONE VALIDATION (exactly 10 digits)
-const phonePattern = /^[0-9]{10}$/;
-
-if(!phone || !phonePattern.test(phone)){
-  document.getElementById("phoneError").classList.remove("hidden");
-  valid = false;
-}
-
-
-// stop submission if invalid
-// stop submission if invalid
-if(!valid){
-  return;
-}
-
-
 // SEND DATA TO BACKEND
 const data = {
   name,
@@ -336,9 +301,6 @@ const data = {
   notes
 };
 
-console.log("SENDING DATA:", data);
-console.log("FINAL DATA SENT:", data);
-
 window.parent.postMessage(
   {
     type: "BOOKING_SUBMIT",
@@ -347,6 +309,18 @@ window.parent.postMessage(
   "*"
 );
 
+});
+
+window.addEventListener("message", function(event) {
+  if (event.data?.type !== "BOOKING_VALIDATION_ERRORS") return;
+
+  ["name", "email", "phone"].forEach(function(field) {
+    const errorElement = document.getElementById(field + "Error");
+    const message = event.data.errors?.[field]?.[0];
+
+    errorElement.textContent = message || "";
+    errorElement.classList.toggle("hidden", !message);
+  });
 });
 
 </script>

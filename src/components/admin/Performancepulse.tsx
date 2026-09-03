@@ -1,5 +1,5 @@
 import { BarChart3, TrendingUp, Heart, UserSquare, Calendar, Search } from 'lucide-react';
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 
 export default function PerformancePulse() {
   return (

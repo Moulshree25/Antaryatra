@@ -3,14 +3,44 @@ import { prisma } from "../../../lib/prisma";
 import { z } from "zod";
 
 const bookingSchema = z.object({
-  name: z.string().min(2),
-  email: z.string().email(),
-  phone: z.string().min(10),
+
+  name: z
+    .string()
+    .trim()
+    .min(2, "Name is required")
+    .regex(
+      /^[A-Za-z\s]+$/,
+      "Name must contain only letters"
+    ),
+
+  email: z
+    .string()
+    .trim()
+    .regex(
+      /^[a-zA-Z0-9._%+-]+@gmail\.com$/,
+      "Only Gmail addresses allowed"
+    ),
+
+  phone: z
+    .string()
+    .regex(
+      /^\d{10}$/,
+      "Phone must be exactly 10 digits"
+    ),
+
   mode: z.string(),
 
-  goal: z.string().optional(),               
-  practices: z.array(z.string()).optional(), 
-  notes: z.string().optional()               
+  goal: z.string().optional(),
+
+  practices:
+    z.array(
+      z.string()
+    ).optional(),
+
+  notes:
+    z.string()
+    .optional()
+
 });
 
 // ✅ GET (for admin dashboard)
@@ -41,7 +71,7 @@ export async function POST(req: Request) {
         email,
         phone,
         mode,
-        goal,
+        goal: goal || "",
         practices: practices ? practices.join(", ") : "",
         notes: notes || "",
       },
@@ -52,8 +82,38 @@ export async function POST(req: Request) {
       bookingId: booking.id,
     });
 
-  } catch (error) {
-    console.error(error);
-    return NextResponse.json({ success: false }, { status: 500 });
+  } 
+  
+  catch (error) {
+
+  console.error(error);
+
+  if (error instanceof z.ZodError) {
+
+    return NextResponse.json(
+      {
+        success: false,
+        message:
+          error.errors[0]?.message
+      },
+      {
+        status: 400
+      }
+    );
+
   }
+
+  return NextResponse.json(
+    {
+      success: false,
+      message:
+        "Something went wrong"
+    },
+    {
+      status: 500
+    }
+  );
+
 }
+}
+

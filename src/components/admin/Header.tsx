@@ -2,7 +2,15 @@
 
 import { Search, Bell, HelpCircle } from 'lucide-react';
 
-export default function Header() {
+type HeaderProps = {
+  searchTerm: string;
+  setSearchTerm: (value: string) => void;
+};
+
+export default function Header({
+  searchTerm,
+  setSearchTerm,
+}: HeaderProps) {
   return (
     <header className="sticky top-0 z-30 flex h-16 w-full items-center justify-between bg-surface/80 backdrop-blur-md px-8 shadow-[0px_20px_40px_rgba(25,28,29,0.06)]">
       <div className="flex flex-1 items-center max-w-md">
@@ -11,6 +19,8 @@ export default function Header() {
           <input
             type="text"
             placeholder="Search records..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full rounded-full border-none bg-surface-container-low pl-10 pr-4 py-2 text-sm focus:ring-2 focus:ring-primary/20 placeholder:text-on-surface-variant/40 transition-all"
           />
         </div>

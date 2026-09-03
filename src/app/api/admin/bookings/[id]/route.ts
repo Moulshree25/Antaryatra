@@ -3,11 +3,11 @@ import { NextResponse } from "next/server";
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
-) {
+  { params }: { params: Promise<{ id: string }> }) {
   try {
 
-    const bookingId = Number(params.id);
+    const { id } = await params;
+    const bookingId = Number(id);
 
     if (isNaN(bookingId)) {
       return NextResponse.json(

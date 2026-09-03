@@ -17,10 +17,10 @@ export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
   ];
 
   return (
-    <aside className="fixed left-0 top-0 hidden h-screen w-64 flex-col bg-surface-container-low py-8 md:flex z-40 border-r border-outline-variant/10">
-      <div className="px-8 mb-10">
+    <aside className="fixed left-0 top-0 hidden h-screen w-[210px] flex-col bg-surface-container-low py-8 md:flex z-40 border-r border-outline-variant/10">
+      <div className="px-6 pt-6 mb-8">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary shadow-lg shadow-primary/20">
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#73816C] shadow-lg shadow-primary/20">
             <Leaf className="text-white fill-white" size={24} />
           </div>
           <div>
@@ -39,7 +39,7 @@ export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
               key={item.id}
               id={`nav-${item.id}`}
               onClick={() => setActiveTab(item.id)}
-              className={`flex w-full items-center gap-3 px-4 py-3 transition-all duration-300 rounded-lg group ${
+              className={`flex w-full items-center gap-3 px-5 py-4 transition-all duration-300 rounded-2xl group ${
                 isActive 
                   ? 'bg-surface-container-lowest text-primary font-bold shadow-sm' 
                   : 'text-on-surface-variant hover:text-primary hover:translate-x-1'
@@ -50,7 +50,7 @@ export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
               {isActive && (
                 <motion.div
                   layoutId="activeNav"
-                  className="absolute left-0 w-1 h-6 bg-primary rounded-r-full"
+                  className="absolute left-0 w-1 h-6 bg-[#73816C] rounded-r-full"
                 />
               )}
             </button>
@@ -58,12 +58,12 @@ export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
         })}
       </nav>
 
-      <div className="mt-auto px-4 pt-8 border-t border-outline-variant/10 space-y-1">
-        <button className="flex w-full items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary transition-all rounded-lg">
+      <div className="mt-auto px-6 pt-10 pb-6 border-t border-outline-variant/10 space-y-1">
+        <button className="flex w-full items-center gap-3 px-5 py-4 text-on-surface-variant hover:text-primary transition-all rounded-2xl">
           <Settings size={20} />
           <span className="text-sm tracking-wide">Settings</span>
         </button>
-        <button className="flex w-full items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary transition-all rounded-lg">
+        <button className="flex w-full items-center gap-3 px-5 py-4 text-on-surface-variant hover:text-primary transition-all rounded-2xl">
           <HelpCircle size={20} />
           <span className="text-sm tracking-wide">Support</span>
         </button>

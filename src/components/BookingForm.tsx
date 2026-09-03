@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function BookingForm() {
 
   const [step, setStep] = useState(1);
   const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -18,6 +19,23 @@ export default function BookingForm() {
     notes: ""
   });
 
+  useEffect(() => {
+
+  const saved =
+    localStorage.getItem(
+      "antaryatra-booking"
+    );
+
+  if (saved) {
+
+    setFormData(
+      JSON.parse(saved)
+    );
+
+  }
+
+}, []);
+
   const handleChange = (e: any) => {
     setFormData({
       ...formData,
@@ -25,65 +43,72 @@ export default function BookingForm() {
     });
   };
 
+  useEffect(() => {
+
+  localStorage.setItem(
+    "antaryatra-booking",
+    JSON.stringify(formData)
+  );
+
+}, [formData]);
+
   const nextStep = () => setStep(step + 1);
   const prevStep = () => setStep(step - 1);
 
   const handleSubmit = async () => {
 
-  try {
+    if (loading) return;
 
-    const res = await fetch("/api/booking", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
+    setLoading(true);
 
-    if (!res.ok) {
-      throw new Error("Failed to submit booking");
+    try {
+
+      const res = await fetch("/api/booking", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to submit booking");
+      }
+
+      setSuccess(true);
+      localStorage.removeItem(
+        "antaryatra-booking"
+      );
+
+    } catch (error) {
+
+      alert("Something went wrong. Please try again.");
+
+    } finally {
+
+      setLoading(false);
+
     }
 
-    setSuccess(true);
+  };
 
-  } catch (error) {
+  if (success) {
+    return (
+      <div className="max-w-lg mx-auto bg-zinc-900 text-white p-10 rounded-xl shadow-xl text-center">
+        <h2 className="text-3xl font-bold text-green-500 mb-4">
+          Booking Confirmed ✓
+        </h2>
 
-    alert("Something went wrong. Please try again.");
-
+        <p className="text-gray-300">
+          Thank you for booking your session.
+          We will contact you shortly.
+        </p>
+      </div>
+    );
   }
-};
 
-if (success) {
+
   return (
-    <div className="max-w-lg mx-auto bg-zinc-900 text-white p-10 rounded-xl shadow-xl text-center">
-      <h2 className="text-3xl font-bold text-green-500 mb-4">
-        Booking Confirmed ✓
-      </h2>
-
-      <p className="text-gray-300">
-        Thank you for booking your session.
-        We will contact you shortly.
-      </p>
-    </div>
-  );
-}
-
-if (success) {
-  return (
-    <div className="max-w-lg mx-auto bg-zinc-900 text-white p-10 rounded-xl shadow-xl text-center">
-      <h2 className="text-3xl font-bold text-green-500 mb-4">
-        Booking Confirmed ✓
-      </h2>
-
-      <p className="text-gray-300">
-        Thank you for booking your session.
-        We will contact you shortly.
-      </p>
-    </div>
-  );
-}
-
-return (
     <div className="max-w-lg mx-auto bg-zinc-900 text-white p-8 rounded-xl shadow-xl space-y-6">
 
       <h2 className="text-2xl font-bold text-center">
@@ -98,9 +123,38 @@ return (
 
           <input
             name="name"
+            type="text"
             placeholder="Full Name"
-            onChange={handleChange}
-            className="w-full p-3 rounded-lg border bg-black"
+            value={formData.name}
+
+            onChange={(e) => {
+
+              const value =
+                e.target.value;
+
+              if (
+                /^[A-Za-z\s]*$/.test(
+                  value
+                )
+              ) {
+
+                setFormData({
+                  ...formData,
+                  name: value
+                });
+
+              }
+
+            }}
+
+            className="
+              w-full
+              p-3
+              rounded-lg
+              border
+              bg-black
+            "
+
           />
 
           <input
@@ -257,9 +311,23 @@ return (
 
             <button
               onClick={handleSubmit}
-              className="flex-1 bg-green-600 py-3 rounded-lg font-semibold"
+              disabled={loading}
+              className={`
+                  flex-1
+                  py-3
+                  rounded-lg
+                  font-semibold
+                  ${loading
+                  ? "bg-gray-600 cursor-not-allowed"
+                  : "bg-green-600"
+                }
+              `}
             >
-              Submit Booking
+
+              {loading
+                ? "Submitting..."
+                : "Submit Booking"}
+
             </button>
 
           </div>

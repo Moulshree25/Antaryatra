@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
+import { useEffect, useState } from "react";import {
   Plus,
   BarChart,
   Users,
@@ -10,7 +10,80 @@ import {
   CalendarX
 } from "lucide-react";
 
+type Booking = {
+  id: number;
+  name: string;
+  email: string;
+  phone: string;
+  mode: string;
+  goal: string;
+  practices: string;
+  notes: string;
+  createdAt: string;
+};
+
 export default function Dashboard() {
+  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [deletingId, setDeletingId] = useState<number | null>(null);
+
+  useEffect(() => {
+    async function fetchBookings() {
+      try {
+        const response = await fetch("/api/admin/bookings");
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch bookings");
+        }
+
+        const data = await response.json();
+
+        setBookings(data.bookings ?? data);
+      } catch (err) {
+        console.error(err);
+        setError("Unable to load bookings.");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchBookings();
+  }, []);
+
+  async function handleDelete(id: number) {
+  const confirmed = window.confirm(
+    "Are you sure you want to delete this booking?"
+  );
+
+  if (!confirmed) return;
+
+  try {
+    setDeletingId(id);
+
+    const response = await fetch("/api/admin/bookings", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to delete booking");
+    }
+
+    setBookings((currentBookings) =>
+      currentBookings.filter((booking) => booking.id !== id)
+    );
+  } catch (err) {
+    console.error(err);
+    setError("Unable to delete booking.");
+  } finally {
+    setDeletingId(null);
+  }
+}
+
   return (
     <div className="px-10 pt-10 pb-12 max-w-[1380px] mx-auto">
       <motion.div 
@@ -29,10 +102,15 @@ export default function Dashboard() {
            <button className="bg-surface-container-high hover:bg-surface-container-highest text-primary px-6 py-3 rounded-xl flex items-center gap-2 font-bold transition-all">
             Export Report
           </button>
-          <button className="bg-[#73816C] hover:bg-[#73816C]-container text-white px-8 py-4 rounded-xl flex items-center gap-2 font-bold transition-all shadow-lg shadow-primary/20 hover:-translate-y-1">
-            <Plus size={20} />
-            Add New Booking
-          </button>
+          <button
+          onClick={() => {
+          window.location.href = "/booking";
+          }}
+          className="bg-[#73816C] hover:bg-[#73816C]-container text-white px-8 py-4 rounded-xl flex items-center gap-2 font-bold transition-all shadow-lg shadow-primary/20 hover:-translate-y-1"
+          >
+          <Plus size={20} />
+          Booking
+        </button>
         </div>
       </motion.div>
 
@@ -53,9 +131,20 @@ export default function Dashboard() {
           <div className="bg-[#DCE7D5] w-20 h-20 rounded-[28px] flex items-center justify-center text-primary mb-6 shadow-inner">
             <BarChart size={32} />
           </div>
-          <h3 className="text-xl font-display font-bold mb-2 text-on-surface text-center">No activity detected yet</h3>
+          <h3 className="text-xl font-display font-bold mb-2 text-on-surface text-center">
+          {loading
+          ? "Loading booking activity..."
+          : bookings.length > 0
+          ? `${bookings.length} booking${bookings.length === 1 ? "" : "s"} recorded`
+          : "No bookings yet"}
+          </h3>
+
           <p className="text-on-surface-variant text-center max-w-xs mb-8">
-            Once your clients start booking sessions, your weekly activity chart will appear here with rich insights.
+          {error
+          ? error
+          : bookings.length > 0
+          ? "Your booking records are now connected to the admin dashboard."
+          : "New bookings will appear here automatically."}
           </p>
           <button className="text-primary font-bold flex items-center gap-2 hover:translate-x-1 transition-transform group">
             Explore demo data <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
@@ -72,8 +161,10 @@ export default function Dashboard() {
           >
             <BarChart size={32} className="text-secondary mb-3" />
             <h4 className="text-[10px] font-bold text-on-surface-variant/40 uppercase tracking-widest mb-1">Total Revenue</h4>
-            <p className="text-4xl font-display font-black text-on-surface">$0.00</p>
-            <p className="text-[10px] text-on-surface-variant/40 mt-2 italic">Awaiting first transaction</p>
+            <p className="text-4xl font-display font-black text-on-surface">—</p>
+            <p className="text-[10px] text-on-surface-variant/40 mt-2 italic">
+            Payment data not available
+            </p>
           </motion.div>
 
           <motion.div 
@@ -84,12 +175,16 @@ export default function Dashboard() {
           >
             <Users size={32} className="text-primary mb-3" />
             <h4 className="text-[10px] font-bold text-on-surface-variant/40 uppercase tracking-widest mb-1">New Registrations</h4>
-            <p className="text-4xl font-display font-black text-on-surface">0</p>
-            <p className="text-[10px] text-on-surface-variant/40 mt-2 italic">Invite your first client via email</p>
+            <p className="text-4xl font-display font-black text-on-surface">
+            {loading ? "..." : bookings.length}
+            </p>
+            <p className="text-[10px] text-on-surface-variant/40 mt-2 italic">
+            Total registered bookings
+            </p>
           </motion.div>
         </div>
 
-        {/* Upcoming Appointments */}
+        {/* Recent Bookings */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -98,22 +193,80 @@ export default function Dashboard() {
         >
           <div className="bg-surface-container-lowest rounded-[1.9rem] p-8">
             <div className="flex items-center justify-between mb-8">
-              <h3 className="text-xl font-display font-bold text-on-surface">Upcoming Appointments</h3>
-              <span className="bg-[#73816C]-fixed text-primary px-3 py-1 rounded-full text-xs font-bold">Upcoming: 0</span>
+              <h3 className="text-xl font-display font-bold text-on-surface">Recent Bookings</h3>
+              <span className="bg-[#73816C]-fixed text-primary px-3 py-1 rounded-full text-xs font-bold">Recent: {bookings.length}</span>
             </div>
             
-            <div className="flex flex-col items-center justify-center py-20 border-2 border-dashed border-outline-variant/20 rounded-[28px] bg-surface/30">
-              <div className="w-20 h-20 bg-surface-container-low rounded-[28px] flex items-center justify-center mb-4">
-                <LayoutDashboard size={40} className="text-on-surface-variant/20" />
-              </div>
-              <p className="text-lg font-display font-bold text-on-surface">Your schedule is clear</p>
-              <p className="text-on-surface-variant mb-6 text-center max-w-sm">
-                There are no upcoming appointments scheduled for this week.
-              </p>
-              <button className="px-8 py-3 border-2 border-primary text-primary font-bold rounded-xl hover:bg-[#73816C] hover:text-white transition-all active:scale-95">
-                Setup Availability
-              </button>
-            </div>
+            <div className="border-2 border-outline-variant/10 rounded-[28px] bg-surface/30 overflow-hidden">
+  {loading ? (
+    <div className="py-16 text-center text-on-surface-variant">
+      Loading bookings...
+    </div>
+  ) : error ? (
+    <div className="py-16 text-center text-red-600">
+      {error}
+    </div>
+  ) : bookings.length === 0 ? (
+    <div className="py-16 text-center">
+      <div className="w-20 h-20 bg-surface-container-low rounded-[28px] flex items-center justify-center mx-auto mb-4">
+        <LayoutDashboard size={40} className="text-on-surface-variant/20" />
+      </div>
+
+      <p className="text-lg font-display font-bold text-on-surface">
+        No bookings yet
+      </p>
+
+      <p className="text-on-surface-variant mt-2">
+        New client bookings will appear here.
+      </p>
+    </div>
+  ) : (
+    <div className="divide-y divide-outline-variant/10">
+      {bookings.slice(0, 5).map((booking) => (
+        <div
+          key={booking.id}
+          className="p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4"
+        >
+          <div>
+            <p className="font-bold text-on-surface">
+              {booking.name}
+            </p>
+
+            <p className="text-sm text-on-surface-variant">
+              {booking.email}
+            </p>
+          </div>
+
+          <div className="text-sm text-on-surface-variant">
+            <p>
+              <span className="font-semibold">Mode:</span>{" "}
+              {booking.mode}
+            </p>
+
+            <p>
+              <span className="font-semibold">Goal:</span>{" "}
+              {booking.goal || "Not specified"}
+            </p>
+          </div>
+
+          <div className="flex items-center gap-4">
+          <div className="text-sm text-on-surface-variant">
+          {new Date(booking.createdAt).toLocaleDateString()}
+          </div>
+
+        <button
+          onClick={() => handleDelete(booking.id)}
+          disabled={deletingId === booking.id}
+          className="px-4 py-2 rounded-lg bg-red-50 text-red-600 font-semibold text-sm hover:bg-red-100 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+            {deletingId === booking.id ? "Deleting..." : "Delete"}
+          </button>
+        </div>
+        </div>
+      ))}
+    </div>
+  )}
+</div>
           </div>
         </motion.div>
       </div>

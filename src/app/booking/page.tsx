@@ -1,5 +1,16 @@
 "use client";
 import { useEffect } from "react";
+import {
+  bookingSchema,
+  getBookingValidationErrors,
+  type BookingValidationErrors,
+} from "../../lib/bookingSchema";
+
+type BookingResponse = {
+  success?: boolean;
+  message?: string;
+  errors?: BookingValidationErrors;
+};
 
 export default function BookingPage() {
 
@@ -7,8 +18,18 @@ export default function BookingPage() {
     const handler = async (event: MessageEvent) => {
 
       if (event.data?.type === "BOOKING_SUBMIT") {
+        const validation = bookingSchema.safeParse(event.data.payload);
 
-        console.log("Received from iframe:", event.data.payload);
+        if (!validation.success) {
+          event.source?.postMessage(
+            {
+              type: "BOOKING_VALIDATION_ERRORS",
+              errors: getBookingValidationErrors(validation.error),
+            },
+            { targetOrigin: event.origin },
+          );
+          return;
+        }
 
         try {
           const res = await fetch("/api/booking", {
@@ -16,16 +37,22 @@ export default function BookingPage() {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(event.data.payload),
+            body: JSON.stringify(validation.data),
           });
 
-          const result = await res.json();
+          const result: BookingResponse = await res.json();
 
 if (res.ok && result.success) {
   window.location.href = "/booking/success";
 } else {
-  console.error("API ERROR:", result);
-  alert(result.message || "Booking failed");
+  if (result.errors) {
+    event.source?.postMessage(
+      { type: "BOOKING_VALIDATION_ERRORS", errors: result.errors },
+      { targetOrigin: event.origin },
+    );
+  } else {
+    alert(result.message || "Booking failed. Please try again.");
+  }
 }
 
         } catch (err) {
