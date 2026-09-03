@@ -22,7 +22,11 @@ type Booking = {
   createdAt: string;
 };
 
-export default function Dashboard() {
+type DashboardProps = {
+  searchTerm: string;
+};
+
+export default function Dashboard({ searchTerm }: DashboardProps) {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -50,6 +54,20 @@ export default function Dashboard() {
 
     fetchBookings();
   }, []);
+
+  const filteredBookings = bookings.filter((booking) => {
+  const search = searchTerm.toLowerCase().trim();
+
+  if (!search) return true;
+
+  return (
+    booking.name.toLowerCase().includes(search) ||
+    booking.email.toLowerCase().includes(search) ||
+    booking.phone.toLowerCase().includes(search) ||
+    booking.goal.toLowerCase().includes(search) ||
+    booking.mode.toLowerCase().includes(search)
+  );
+});
 
   async function handleDelete(id: number) {
   const confirmed = window.confirm(
@@ -84,6 +102,65 @@ export default function Dashboard() {
   }
 }
 
+  function handleExport() {
+  if (bookings.length === 0) {
+    alert("There are no bookings to export.");
+    return;
+  }
+
+  const headers = [
+    "ID",
+    "Name",
+    "Email",
+    "Phone",
+    "Mode",
+    "Goal",
+    "Practices",
+    "Notes",
+    "Created At",
+  ];
+
+  const rows = bookings.map((booking) => [
+    booking.id,
+    booking.name,
+    booking.email,
+    booking.phone,
+    booking.mode,
+    booking.goal,
+    booking.practices,
+    booking.notes,
+    new Date(booking.createdAt).toISOString(),
+  ]);
+
+  const csv = [
+    headers,
+    ...rows,
+  ]
+    .map((row) =>
+      row
+        .map((value) => `"${String(value ?? "").replace(/"/g, '""')}"`)
+        .join(",")
+    )
+    .join("\n");
+
+  const blob = new Blob([csv], {
+    type: "text/csv;charset=utf-8;",
+  });
+
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.download = `antaryatra-bookings-${new Date()
+    .toISOString()
+    .slice(0, 10)}.csv`;
+
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+}
+
   return (
     <div className="px-10 pt-10 pb-12 max-w-[1380px] mx-auto">
       <motion.div 
@@ -99,9 +176,12 @@ export default function Dashboard() {
           </p>
         </div>
         <div className="flex gap-3">
-           <button className="bg-surface-container-high hover:bg-surface-container-highest text-primary px-6 py-3 rounded-xl flex items-center gap-2 font-bold transition-all">
+           <button
+            onClick={handleExport}
+            className="bg-surface-container-high hover:bg-surface-container-highest text-primary px-6 py-3 rounded-xl flex items-center gap-2 font-bold transition-all"
+            >
             Export Report
-          </button>
+            </button>
           <button
           onClick={() => {
           window.location.href = "/booking";
@@ -222,7 +302,7 @@ export default function Dashboard() {
     </div>
   ) : (
     <div className="divide-y divide-outline-variant/10">
-      {bookings.slice(0, 5).map((booking) => (
+      {filteredBookings.slice(0, 5).map((booking) => (
         <div
           key={booking.id}
           className="p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4"

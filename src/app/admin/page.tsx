@@ -34,7 +34,7 @@ export default function AdminPage() {
         <div className="px-2">
 
           {activeTab !== "clients" && activeTab !== "staff" && (
-          <Dashboard />
+          <Dashboard searchTerm={searchTerm} />
           )}
 
           {activeTab === "clients" && (
