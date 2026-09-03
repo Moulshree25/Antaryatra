@@ -10,6 +10,7 @@ type Booking = {
   mode: string;
   goal: string;
   practices: string;
+  notes?: string;
   createdAt: string;
 };
 
@@ -17,6 +18,8 @@ export default function ClientManagement() {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
+  const [selectedBooking, setSelectedBooking] =
+  useState<Booking | null>(null);
 
   useEffect(() => {
     load();
@@ -117,6 +120,11 @@ ${b.mode}
         placeholder="Search clients..."
         className="w-full mb-8 p-4 rounded-2xl bg-white"
       />
+            <p className="mb-4 text-sm text-on-surface-variant">
+        {loading
+          ? "Loading clients..."
+          : `${rows.length} client${rows.length === 1 ? "" : "s"} found`}
+      </p>
 
       <div className="bg-white rounded-[28px] overflow-hidden">
 
@@ -187,16 +195,21 @@ ${b.mode}
                 }
               </div>
 
+              <div className="flex items-center gap-3">
               <button
-                onClick={() =>
-                  remove(
-                    b.id
-                  )
-                }
-                className="text-red-600 hover:underline text-left"
+                onClick={() => setSelectedBooking(b)}
+                className="text-primary font-semibold hover:underline"
+              >
+                View
+              </button>
+
+              <button
+                onClick={() => remove(b.id)}
+                className="text-red-600 hover:underline"
               >
                 Delete
               </button>
+            </div>
 
             </div>
 
@@ -205,6 +218,82 @@ ${b.mode}
         )}
 
       </div>
+
+    {selectedBooking && (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-6">
+        <div className="w-full max-w-2xl rounded-[28px] bg-white p-8 shadow-2xl">
+          <div className="flex items-start justify-between mb-8">
+            <div>
+              <p className="text-[10px] tracking-[0.2em] font-bold uppercase text-on-surface-variant">
+                CLIENT DETAILS
+              </p>
+
+              <h2 className="text-3xl font-display font-black text-on-surface">
+                {selectedBooking.name}
+              </h2>
+            </div>
+
+            <button
+              onClick={() => setSelectedBooking(null)}
+              className="text-on-surface-variant hover:text-on-surface text-2xl"
+            >
+              ×
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <p className="text-xs font-bold text-on-surface-variant">
+                EMAIL
+              </p>
+              <p>{selectedBooking.email}</p>
+            </div>
+
+            <div>
+              <p className="text-xs font-bold text-on-surface-variant">
+                PHONE
+              </p>
+              <p>{selectedBooking.phone}</p>
+            </div>
+
+            <div>
+              <p className="text-xs font-bold text-on-surface-variant">
+                MODE
+              </p>
+              <p>{selectedBooking.mode}</p>
+            </div>
+
+            <div>
+              <p className="text-xs font-bold text-on-surface-variant">
+                GOAL
+              </p>
+              <p>{selectedBooking.goal || "-"}</p>
+            </div>
+
+            <div className="md:col-span-2">
+              <p className="text-xs font-bold text-on-surface-variant">
+                PRACTICES
+              </p>
+              <p>{selectedBooking.practices || "-"}</p>
+            </div>
+
+            <div className="md:col-span-2">
+              <p className="text-xs font-bold text-on-surface-variant">
+                NOTES
+              </p>
+              <p>{selectedBooking.notes || "-"}</p>
+            </div>
+          </div>
+
+          <button
+            onClick={() => setSelectedBooking(null)}
+            className="mt-8 w-full rounded-xl bg-[#73816C] px-6 py-3 font-bold text-white"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    )}
 
     </div>
   );
