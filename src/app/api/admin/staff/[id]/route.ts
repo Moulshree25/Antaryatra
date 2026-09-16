@@ -1,0 +1,36 @@
+import { prisma } from "@/lib/prisma";
+import { NextResponse } from "next/server";
+
+export async function DELETE(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const { id } = await params;
+    const staffId = Number(id);
+
+    if (isNaN(staffId)) {
+      return NextResponse.json(
+        { error: "Invalid staff id" },
+        { status: 400 }
+      );
+    }
+
+    await prisma.staff.delete({
+      where: {
+        id: staffId,
+      },
+    });
+
+    return NextResponse.json({
+      success: true,
+    });
+  } catch (error) {
+    console.error("STAFF DELETE ERROR:", error);
+
+    return NextResponse.json(
+      { error: "Delete failed" },
+      { status: 500 }
+    );
+  }
+}

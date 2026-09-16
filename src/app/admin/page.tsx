@@ -7,6 +7,7 @@ import Header from "@/components/admin/Header";
 
 import Dashboard from "@/components/admin/Dashboard";
 import ClientManagement from "@/components/admin/ClientManagement";
+import StaffManagement from "@/components/admin/StaffManagement";
 
 
 export default function AdminPage() {
@@ -42,9 +43,7 @@ export default function AdminPage() {
           )}
 
           {activeTab === "staff" && (
-            <div className="p-10">
-              Staff Module
-            </div>
+            <StaffManagement />
           )}
 
           {activeTab === "analytics" && (
