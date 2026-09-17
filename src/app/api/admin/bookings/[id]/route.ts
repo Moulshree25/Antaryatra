@@ -1,6 +1,9 @@
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
+import { z } from "zod";
+
+const idSchema = z.coerce.number().int().positive();
 
 export async function DELETE(
   request: Request,
@@ -24,9 +27,10 @@ export async function DELETE(
 
   try {
     const { id } = await params;
-    const bookingId = Number(id);
 
-    if (!Number.isInteger(bookingId)) {
+    const result = idSchema.safeParse(id);
+
+    if (!result.success) {
       return NextResponse.json(
         { error: "Invalid booking id" },
         { status: 400 }
@@ -35,7 +39,7 @@ export async function DELETE(
 
     await prisma.booking.delete({
       where: {
-        id: bookingId,
+        id: result.data,
       },
     });
 
@@ -43,7 +47,7 @@ export async function DELETE(
       success: true,
     });
   } catch (error) {
-    console.error("DELETE BOOKING ERROR:", error);
+    console.error("BOOKING DELETE ERROR:", error);
 
     return NextResponse.json(
       { error: "Delete failed" },

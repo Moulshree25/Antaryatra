@@ -1,6 +1,9 @@
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
+import { z } from "zod";
+
+const idSchema = z.coerce.number().int().positive();
 
 export async function DELETE(
   request: Request,
@@ -24,9 +27,10 @@ export async function DELETE(
 
   try {
     const { id } = await params;
-    const staffId = Number(id);
 
-    if (!Number.isInteger(staffId)) {
+    const result = idSchema.safeParse(id);
+
+    if (!result.success) {
       return NextResponse.json(
         { error: "Invalid staff id" },
         { status: 400 }
@@ -34,10 +38,14 @@ export async function DELETE(
     }
 
     await prisma.staff.delete({
-      where: { id: staffId },
+      where: {
+        id: result.data,
+      },
     });
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({
+      success: true,
+    });
   } catch (error) {
     console.error("STAFF DELETE ERROR:", error);
 
