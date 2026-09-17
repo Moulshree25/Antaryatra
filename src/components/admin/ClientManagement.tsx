@@ -18,6 +18,7 @@ export default function ClientManagement() {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
   const [selectedBooking, setSelectedBooking] =
   useState<Booking | null>(null);
 
@@ -26,23 +27,28 @@ export default function ClientManagement() {
   }, []);
 
   async function load() {
-    try {
-      setLoading(true);
+  try {
+    setLoading(true);
+    setError("");
 
-      const res = await fetch(
-        "/api/admin/bookings",
-        {
-          cache: "no-store",
-        }
-      );
+    const res = await fetch("/api/admin/bookings", {
+      cache: "no-store",
+    });
 
-      const data = await res.json();
-
-      setBookings(data);
-    } finally {
-      setLoading(false);
+    if (!res.ok) {
+      throw new Error("Failed to load clients");
     }
+
+    const data = await res.json();
+
+    setBookings(data);
+  } catch (error) {
+    console.error(error);
+    setError("Failed to load clients");
+  } finally {
+    setLoading(false);
   }
+}
 
   async function remove(id: number) {
     const ok = confirm(
@@ -148,11 +154,17 @@ ${b.mode}
 
         {loading ? (
 
-          <div className="p-10">
-            Loading...
-          </div>
+  <div className="p-10">
+    Loading...
+  </div>
 
-        ) : rows.length === 0 ? (
+) : error ? (
+
+  <div className="p-10 text-red-600">
+    {error}
+  </div>
+
+) : rows.length === 0 ? (
 
           <div className="p-10">
             No results found

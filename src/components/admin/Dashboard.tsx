@@ -1,13 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";import {
+import { useEffect, useState } from "react";
+import {
   Plus,
   BarChart,
   Users,
   LayoutDashboard,
   ArrowRight,
-  CalendarX
 } from "lucide-react";
 
 type Booking = {
@@ -172,7 +172,7 @@ export default function Dashboard({ searchTerm }: DashboardProps) {
           <span className="text-[10px] font-bold tracking-[0.15em] text-primary uppercase mb-2 block">System Overview</span>
           <h2 className="text-[64px] font-display font-extrabold text-on-surface tracking-tighter leading-none mb-4">Welcome to Restorative Admin</h2>
           <p className="text-on-surface-variant text-lg leading-relaxed">
-            Your wellness center is currently quiet. Start by adding your first client or exploring your new management toolkit.
+            Monitor bookings, clients, and staff from your wellness center dashboard.
           </p>
         </div>
         <div className="flex gap-3">
@@ -226,9 +226,9 @@ export default function Dashboard({ searchTerm }: DashboardProps) {
           ? "Your booking records are now connected to the admin dashboard."
           : "New bookings will appear here automatically."}
           </p>
-          <button className="text-primary font-bold flex items-center gap-2 hover:translate-x-1 transition-transform group">
-            Explore demo data <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-          </button>
+          <div className="text-primary font-bold flex items-center gap-2">
+          Live booking data <ArrowRight size={18} />
+          </div>
         </motion.div>
 
         {/* Metric Cards */}

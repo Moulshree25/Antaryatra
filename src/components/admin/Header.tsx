@@ -1,6 +1,7 @@
 "use client";
 
-import { Search, Bell, HelpCircle } from 'lucide-react';
+import { Search, Bell, HelpCircle, LogOut } from "lucide-react";
+import { signOut } from "next-auth/react";
 
 type HeaderProps = {
   searchTerm: string;
@@ -40,19 +41,34 @@ export default function Header({
         <div className="h-8 w-[1px] bg-outline-variant/20 mx-2" />
         
         <div className="flex items-center gap-3">
-          <div className="hidden text-right sm:block">
-            <p className="font-display text-xs font-bold text-on-surface">Admin User</p>
-            <p className="text-[10px] text-on-surface-variant/60">Wellness Director</p>
-          </div>
-          <div className="h-9 w-9 overflow-hidden rounded-full border-2 border-white shadow-sm">
-            <img
-              src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=100"
-              alt="Admin Profile"
-              className="h-full w-full object-cover"
-              referrerPolicy="no-referrer"
-            />
-          </div>
-        </div>
+  <div className="hidden text-right sm:block">
+    <p className="font-display text-xs font-bold text-on-surface">
+      Admin User
+    </p>
+    <p className="text-[10px] text-on-surface-variant/60">
+      Wellness Director
+    </p>
+  </div>
+
+  <div className="h-9 w-9 overflow-hidden rounded-full border-2 border-white shadow-sm">
+    <img
+      src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=100"
+      alt="Admin Profile"
+      className="h-full w-full object-cover"
+      referrerPolicy="no-referrer"
+    />
+  </div>
+
+  <button
+    type="button"
+    onClick={() => signOut({ callbackUrl: "/login" })}
+    className="flex h-10 w-10 items-center justify-center rounded-full text-on-surface-variant transition-colors hover:bg-red-50 hover:text-red-600"
+    aria-label="Sign out"
+    title="Sign out"
+  >
+    <LogOut size={19} />
+  </button>
+</div>
       </div>
     </header>
   );
