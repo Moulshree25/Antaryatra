@@ -8,6 +8,7 @@ import Header from "@/components/admin/Header";
 import Dashboard from "@/components/admin/Dashboard";
 import ClientManagement from "@/components/admin/ClientManagement";
 import StaffManagement from "@/components/admin/StaffManagement";
+import Analytics from "@/components/admin/Analytics";
 
 
 export default function AdminPage() {
@@ -47,10 +48,8 @@ export default function AdminPage() {
           )}
 
           {activeTab === "analytics" && (
-            <div className="p-10">
-              Analytics Module
-            </div>
-          )}
+  <Analytics />
+)}
 
         </div>
 
