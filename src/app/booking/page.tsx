@@ -8,6 +8,7 @@ import {
 
 type BookingResponse = {
   success?: boolean;
+  redirectTo?: string;
   message?: string;
   errors?: BookingValidationErrors;
 };
@@ -43,7 +44,7 @@ export default function BookingPage() {
           const result: BookingResponse = await res.json();
 
 if (res.ok && result.success) {
-  window.location.href = "/booking/success";
+  window.location.href = result.redirectTo || "/booking/success";
 } else {
   if (result.errors) {
     event.source?.postMessage(
@@ -77,5 +78,5 @@ if (res.ok && result.success) {
     }}
   />
 );
-  
+
 }

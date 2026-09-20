@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { auth } from "@/auth";
 import { prisma } from "../../../lib/prisma";
 import { z } from "zod";
 
@@ -60,6 +61,8 @@ export async function GET() {
 // ✅ POST (for booking form)
 export async function POST(req: Request) {
   try {
+    const session = await auth();
+    const redirectTo = session?.user?.role === "ADMIN" ? "/admin" : "/booking/success";
     const body = await req.json();
     const data = bookingSchema.parse(body);
 
@@ -80,10 +83,11 @@ export async function POST(req: Request) {
     return NextResponse.json({
       success: true,
       bookingId: booking.id,
+      redirectTo,
     });
 
-  } 
-  
+  }
+
   catch (error) {
 
   console.error(error);
